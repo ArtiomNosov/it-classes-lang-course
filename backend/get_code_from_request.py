@@ -4,12 +4,15 @@
 
 
 from flask import Flask, request, jsonify, send_from_directory
+from launch_docker import run_in_docker
 import os
+
 
 app = Flask(__name__)
 
+
 # Путь для сохранения файлов
-UPLOAD_DIR = "./user_code"
+UPLOAD_DIR = "backend/user_code"
 # Убедимся, что директория существует
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
@@ -39,5 +42,9 @@ def submit_code():
 
     return jsonify({"message": "Code saved successfully", "file_path": file_path}), 200
 
+file_path = "backend/user_code/user_code.cpp"
+with open("backend/user_code/result.txt", 'w') as file:
+    file.write(run_in_docker(file_path))
+    print("resulted")
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
