@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Input</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+
+        .code-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .code-input {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: "Courier New", monospace;
+            font-size: 16px;
+            padding: 10px;
+            resize: none;
+            outline: none;
+        }
+
+        .submit-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="code-container">
+        <h2>Enter Your Code</h2>
+        <textarea id="codeInput" class="code-input" placeholder="Write your code here..."></textarea>
+        <button class="submit-btn" onclick="submitCode()">Submit</button>
+    </div>
+
+    <script>
+        async function submitCode() {
+            const code = document.getElementById('codeInput').value;
+    
+            const response = await fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ code }),
+            });
+    
+            if (response.ok) {
+                alert('Code submitted successfully!');
+                // Очистить поле ввода после успешной отправки
+                document.getElementById('codeInput').value = '';
+            } else {
+                alert('Error submitting code.');
+            }
+        }
+    </script>
+    
+</body>
+</html>
