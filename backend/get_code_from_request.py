@@ -15,7 +15,7 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 @app.route('/')
 def serve_html():
-    return send_from_directory('static', 'index.html')
+    return send_from_directory('../static', 'index.html')
 
 @app.route('/submit', methods=['POST'])
 def submit_code():
