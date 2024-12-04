@@ -1,3 +1,8 @@
+'''
+здесь по пути /submit мы принимаем запрос с кодом, обрабатываем его и запихиваем в файлик (пока что, потом возможно будет как то по другому)
+'''
+
+
 from flask import Flask, request, jsonify, send_from_directory
 import os
 
