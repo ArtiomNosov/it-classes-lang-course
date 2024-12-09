@@ -1,0 +1,3 @@
+main.cpp:1:1: error: 'abayudno' does not name a type
+    1 | abayudno;
+      | ^~~~~~~~
