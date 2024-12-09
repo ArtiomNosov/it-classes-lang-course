@@ -1,1 +1,4 @@
 app/user_code
+__pycache__/
+*.pyc
+*.pyo
