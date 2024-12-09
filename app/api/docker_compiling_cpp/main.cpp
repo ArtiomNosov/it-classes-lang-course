@@ -1,1 +1,2 @@
-abayudno;
+int main(){
+return 0;}

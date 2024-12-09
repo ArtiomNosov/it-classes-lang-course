@@ -20,10 +20,10 @@ def get_code():
         print(f"Code saved successfully to {file_path}")
 
     # Теперь компилируем код
-    result = save_cpp()
+    result = save_cpp() 
 
     # Возвращаем результат компиляции
-    return jsonify({
+    return jsonify({ # лучше потом не сохранять его в файл, а просто отдавать запросом
         "message": "Code saved and compiled successfully",
         "file_path": file_path,
         "compiled_output": result
