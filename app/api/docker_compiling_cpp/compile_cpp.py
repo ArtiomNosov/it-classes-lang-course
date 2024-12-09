@@ -27,15 +27,23 @@ def save_cpp():
     # Определяем текущую директорию
     current_dir = os.getcwd()
     cpp_dir = os.path.join(current_dir, "app/api/docker_compiling_cpp")
+    main_cpp_path = os.path.join(cpp_dir, 'main.cpp')
+    app_path = os.path.join(cpp_dir, 'app')
     
-    # Чтение кода из файла
-    with open(os.path.join(cpp_dir, 'main.cpp'), 'r') as user_code:
-        code = user_code.read()
+    try:
+        # Чтение кода из файла
+        with open(main_cpp_path, 'r') as user_code:
+            code = user_code.read()
 
-    # Получаем результат компиляции и выполнения
-    result = compile_cpp(code)
+        # Получаем результат компиляции и выполнения
+        result = compile_cpp(code)
 
-    # Сохраняем результат в файл
-    with open(os.path.join(cpp_dir, 'result'), 'w') as output_file:
-        output_file.write(result)
-        print(result)
+        # Сохраняем результат в файл
+        with open(os.path.join(cpp_dir, 'result'), 'w') as output_file:
+            output_file.write(result)
+            print(result)
+    finally:
+        # Удаляем main.cpp
+        os.remove(main_cpp_path)
+        os.remove(app_path)
+        
