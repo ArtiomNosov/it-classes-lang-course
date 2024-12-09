@@ -1,4 +1,5 @@
-app/user_code
+app/api/docker_compiling_cpp/main.cpp
+app/api/compiled_code
 __pycache__/
 *.pyc
 *.pyo
