@@ -42,5 +42,6 @@ def save_cpp() -> str: # Возвращает скомпилированный �
     finally:
         # Удаляем main.cpp
         os.remove(main_cpp_path)
-        # os.remove(app_path)
+        if os.path.exists(app_path):
+            os.remove(app_path)
         
