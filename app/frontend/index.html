@@ -62,34 +62,58 @@
         <textarea id="codeEditor"></textarea>
         <button class="submit-btn" onclick="submitCode()">Submit</button>
     </div>
-
+    <div>
+        <h3>Compiled Output:</h3>
+        <pre id="compiledOutput"></pre> <!-- <pre> сохраняет форматирование -->
+    </div>
     <script>
         // Инициализация CodeMirror
-        const editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
-            mode: "text/x-c++src", // Подсветка синтаксиса для C++
-            lineNumbers: true,    // Отображение номеров строк
-            theme: "material",    // Тема редактора
-            matchBrackets: true   // Подсветка парных скобок
+const editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
+    mode: "text/x-c++src", // Подсветка синтаксиса для C++
+    lineNumbers: true,    // Отображение номеров строк
+    theme: "material",    // Тема редактора
+    matchBrackets: true   // Подсветка парных скобок
+});
+
+async function submitCode() {
+    const code = editor.getValue(); // Получение текста из CodeMirror
+
+    try {
+        // Отправка POST-запроса на сервер
+        const response = await fetch('/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ code: code }),
         });
 
-        async function submitCode() {
-            const code = editor.getValue(); // Получение текста из CodeMirror
-            
-            const response = await fetch('/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ code: code }),
-            });
-
-            if (response.ok) {
-                alert('Code submitted successfully!');
-                // editor.setValue(''); // Очистить редактор после успешной отправки
-            } else {
-                alert('Error submitting code.');
-            }
+        if (!response.ok) {
+            // Обработка ошибок от сервера
+            const errorData = await response.json();
+            // alert(`Error: ${errorData.error || "Unknown error occurred"}`);
+            return;
         }
+
+        // Получение JSON-ответа от сервера
+        const result = await response.json();
+        console.log("Compiled Output:", result.compiled_output);
+
+        // Вывод результата в элемент на странице
+        const outputElement = document.getElementById('compiledOutput');
+        if (outputElement) {
+            outputElement.textContent = result.compiled_output;
+        }
+
+        // Альтернативный вывод через alert
+        // alert(`Compiled Output:\n${result.compiled_output}`);
+    } catch (error) {
+        // Обработка ошибок запроса
+        console.error("Request failed:", error);
+        // alert(`Request failed: ${error.message}`);
+    }
+}
+
     </script>
 </body>
 </html>

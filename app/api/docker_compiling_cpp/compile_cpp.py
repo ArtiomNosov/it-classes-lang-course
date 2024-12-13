@@ -23,7 +23,7 @@ def compile_cpp(code: str) -> str:
         print("An error occurred with docker:")
         return e.stderr
 
-def save_cpp():
+def save_cpp() -> str: # Возвращает скомпилированный код в виде строки
     # Определяем текущую директорию
     current_dir = os.getcwd()
     cpp_dir = os.path.join(current_dir, "app/api/docker_compiling_cpp")
@@ -37,13 +37,11 @@ def save_cpp():
 
         # Получаем результат компиляции и выполнения
         result = compile_cpp(code)
-
-        # Сохраняем результат в файл
-        with open(os.path.join(cpp_dir, 'result'), 'w') as output_file:
-            output_file.write(result)
-            print(result)
+        print(f"Compiled code: {result}")
+        return result
     finally:
         # Удаляем main.cpp
         os.remove(main_cpp_path)
-        os.remove(app_path)
+        if os.path.exists(app_path):
+            os.remove(app_path)
         
