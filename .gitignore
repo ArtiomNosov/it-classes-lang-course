@@ -3,3 +3,4 @@ app/api/compiled_code
 __pycache__/
 *.pyc
 *.pyo
+users.db
