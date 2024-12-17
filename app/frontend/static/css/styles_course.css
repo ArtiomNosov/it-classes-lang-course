@@ -1,0 +1,159 @@
+/* Сброс стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Центрирование элементов по вертикали */
+    background-color: #fff;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ccc;
+    z-index: 1000;
+}
+
+header .logo span {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #007acc;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header nav {
+    margin-left: 20px;
+    /* Отступ от логотипа */
+    display: flex;
+    gap: 10px;
+    /* Расстояние между кнопками */
+}
+
+header nav button {
+    padding: 10px 20px;
+    border: none;
+    background-color: transparent;
+    color: #007acc;
+    font-weight: bolder;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+header nav button.active,
+header nav button:hover {
+    background-color: #007acc;
+    color: #fff;
+}
+
+header .auth {
+    margin-left: auto;
+    /* Перемещаем в правый край */
+    display: flex;
+    align-items: center;
+    /* Центрирование по вертикали */
+    gap: 10px;
+    /* Расстояние между кнопками */
+}
+
+header .auth a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #747474;
+    font-weight: lighter;
+}
+
+main {
+    max-width: 1200px;
+    margin: 80px auto 20px;
+    /* Добавлен отступ сверху для корректной работы с фиксированным хедером */
+    padding: 0 20px;
+}
+
+.section-container {
+    background-color: #fff;
+    /* Белый фон */
+    border-radius: 8px;
+    /* Скругленные углы */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Легкая тень */
+    padding: 30px;
+    /* Отступы внутри секции */
+    margin-bottom: 20px;
+    /* Отступ между секциями */
+}
+
+.banner-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    /* Чтобы контент корректно отображался на маленьких экранах */
+}
+
+.banner-text-left,
+.banner-text-right {
+    flex: 1;
+    text-align: center;
+}
+
+.banner-image {
+    width: 324px;
+    height: 328px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.banner-text-left h1,
+.course-content h2 {
+    font-size: 2rem;
+    color: #007acc;
+    margin-bottom: 10px;
+}
+
+.banner-text-left p,
+.banner-text-right p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.course-content {
+    padding: 20px;
+}
+
+.chapters article {
+    margin-bottom: 20px;
+}
+
+.chapters h3 {
+    color: #007acc;
+    margin-bottom: 10px;
+}
+
+.chapters ul {
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+.chapters ul li {
+    margin-bottom: 5px;
+}

@@ -4,7 +4,7 @@ from app.api.get_code_from_request import get_code
 from app.api.get_code_from_request import bp as get_code_bp
 from app.db import create_db
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="app/frontend/static", template_folder="app/frontend/templates")
 app.register_blueprint(get_code_bp)
 app.register_blueprint(route_bp)
 

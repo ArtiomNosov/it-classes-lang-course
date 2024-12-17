@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форум C++</title>
+    <link rel="stylesheet" href="static/css/styles_forum.css"> <!-- Используем тот же CSS файл -->
+</head>
+<body>
+    <header>
+        <div class="logo"><span>C++</span></div>
+        <nav>
+            <button id="course-button">Курс</button>
+            <button id="forum-button" class="active">Форум</button> <!-- Кнопка форума активная -->
+        </nav>
+        <div class="auth">
+            <a href="#">Вход</a>
+            <a href="#">Регистрация</a>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Найдите решение собственной проблемы на C++ PRO</h2>
+            <div class="buttons">
+                <button onclick="location.href='new_question.html'">Задать вопрос</button>
+                <button onclick="location.href='my_questions.html'">Список моих вопросов</button>
+            </div>
+            <div class="questions">
+                <div class="question">
+                    <a href="#">Как сложить две переменные?</a>
+                    <div class="meta">0 голосов | 0 ответов | denis-sadovnik | 2 апреля 2024</div>
+                </div>
+                <div class="question">
+                    <a href="#">Как работает система ввода-вывода в C++ и чем отличаются cin/cout от scanf/printf?</a>
+                    <div class="meta">0 голосов | 0 ответов | plan_banan | 1 января 2023</div>
+                </div>
+            </div>
+        </div>
+    </main> 
+    <script src="js/script2.js"></script>
+</body>
+</html>

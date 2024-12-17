@@ -4,5 +4,5 @@ bp = Blueprint('routes', __name__)
 
 @bp.route('/')
 def serve_html():
-    return send_from_directory('app/frontend', 'index.html')
+    return send_from_directory('app/frontend/template', 'index.html')
 
