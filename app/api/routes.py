@@ -3,6 +3,10 @@ from flask import Blueprint, render_template, request, send_from_directory, json
 bp = Blueprint('routes', __name__)
 
 @bp.route('/')
-def serve_html():
-    return send_from_directory('app/frontend/template', 'index.html')
+def index():
+    return render_template('index.html')
 
+
+@bp.route('/forum')
+def forum_page():
+    return render_template('forum_page.html')
