@@ -10,3 +10,12 @@ def index():
 @bp.route('/forum')
 def forum_page():
     return render_template('forum_page.html')
+
+@bp.route('/login')
+def login_page():
+    return render_template('login.html')
+
+@bp.route('/register')
+def register_page():
+    return render_template('register.html')
+

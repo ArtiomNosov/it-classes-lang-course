@@ -1,0 +1,90 @@
+/* Общие стили */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f5f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 400px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #00a8ff;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin: 10px 0 5px;
+    color: gray;
+    font-size: 12px;
+    text-transform: none;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.remember-me label {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.remember-me input[type="checkbox"] {
+    width: 20px;
+    margin: 0;
+    margin-right: 5px;
+    /* Небольшой отступ справа от чекбокса */
+}
+
+button.btn {
+    background-color: #00a8ff;
+    color: white;
+    border: none;
+    padding: 10px 0;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button.btn:hover {
+    background-color: #007bbf;
+}
+
+a {
+    color: #00a8ff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p {
+    margin-top: 15px;
+}

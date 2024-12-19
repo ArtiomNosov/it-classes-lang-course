@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Логин</title>
+    <link rel="stylesheet" href="static/css/styles_login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>ВОЙТИ В АККАУНТ</h1>
+            <form>
+                <label for="username">ЛОГИН *</label>
+                <input type="text" id="username" placeholder="Введите логин" required>
+                
+                <label for="password">ПАРОЛЬ *</label>
+                <input type="password" id="password" placeholder="Введите пароль" required>
+                
+                <div class="remember-me">
+                    <input type="checkbox" id="remember-me">
+                    <label for="remember-me">Не выходить</label>
+                </div>
+                
+                <button type="submit" class="btn">Авторизоваться</button>
+            </form>
+            <p>
+                <a href="/register">У вас нет аккаунта?</a> | 
+                <a href="#">Забыл пароль?</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
