@@ -10,7 +10,7 @@
     <div class="container">
         <div class="form-container">
             <h1>ВОЙТИ В АККАУНТ</h1>
-            <form>
+            <form id="login-form">
                 <label for="username">ЛОГИН *</label>
                 <input type="text" id="username" placeholder="Введите логин" required>
                 
@@ -30,5 +30,41 @@
             </p>
         </div>
     </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (event) => {
+            event.preventDefault(); // Предотвращаем перезагрузку страницы
+            
+            // Собираем данные из формы
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('remember-me').checked;
+
+            try {
+                const response = await fetch('/submit_login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password,
+                        remember_me: rememberMe,
+                    }),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    alert(`Добро пожаловать, ${data.username}!`);
+                } else {
+                    const error = await response.json();
+                    alert(`Ошибка: ${error.message}`);
+                }
+            } catch (err) {
+                console.error('Ошибка запроса:', err);
+                alert('Произошла ошибка при авторизации.');
+            }
+        });
+    </script>
 </body>
 </html>

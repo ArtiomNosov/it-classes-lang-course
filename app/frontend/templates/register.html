@@ -10,7 +10,7 @@
     <div class="container">
         <div class="form-container">
             <h1>РЕГИСТРАЦИЯ</h1>
-            <form>
+            <form id="register-form">
                 <label for="reg-username">ЛОГИН *</label>
                 <input type="text" id="reg-username" placeholder="Введите логин" required>
                 
@@ -30,5 +30,47 @@
             </p>
         </div>
     </div>
+
+    <script>
+        document.getElementById('register-form').addEventListener('submit', async (event) => {
+            event.preventDefault(); // Предотвращаем перезагрузку страницы
+            
+            // Собираем данные из формы
+            const username = document.getElementById('reg-username').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const confirmPassword = document.getElementById('reg-confirm-password').value;
+
+            if (password !== confirmPassword) {
+                alert('Пароли не совпадают');
+                return;
+            }
+
+            try {
+                const response = await fetch('/new_register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        email: email,
+                        password: password,
+                    }),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    alert(`Пользователь ${data.username} успешно зарегистрирован!`);
+                } else {
+                    const error = await response.json();
+                    alert(`Ошибка: ${error.message}`);
+                }
+            } catch (err) {
+                console.error('Ошибка запроса:', err);
+                alert('Произошла ошибка при регистрации.');
+            }
+        });
+    </script>
 </body>
 </html>
