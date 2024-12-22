@@ -1,4 +1,6 @@
 from flask import Blueprint, render_template, request, send_from_directory, jsonify
+from app.db.passwords import hash_password
+from app.db.actions import save_user_to_db, authenticate_user
 
 bp = Blueprint('routes', __name__)
 
@@ -17,7 +19,6 @@ def login_page():
 
 @bp.route('/submit_login', methods=['POST'])
 def login():
-    
     # Получаем данные из запроса
     data = request.json
     username = data.get('username')
@@ -29,13 +30,10 @@ def login():
     if not username or not password:
         return jsonify({'message': 'Логин и пароль обязательны'}), 400
 
-    '''
-    ване написать функцию которая сверяет логин и пароль 
-    (пароль надо расхэшировать, уже писал фунцкцию в passwords.py) из бд
-    '''
+    
 
     # Например, проверяем пользователя в базе данных
-    if username == 'admin' and password == '1234':  # Здесь пример проверки
+    if authenticate_user(username, password):  # Здесь пример проверки
         return jsonify({'message': 'Успешный вход', 'username': username}), 200
     else:
         return jsonify({'message': 'Неверный логин или пароль'}), 401
@@ -59,7 +57,7 @@ def register():
     # Здесь предполагается, что в базе данных есть проверка на уникальность
     if username == 'existing_user':  # Пример проверки
         return jsonify({'message': 'Логин уже занят'}), 409
-
+    save_user_to_db(username, email, password)
     # Регистрация прошла успешно
     return jsonify({'message': 'Успешная регистрация', 'username': username}), 201
 
