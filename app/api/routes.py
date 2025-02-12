@@ -70,6 +70,6 @@ def forum_template():
     return render_template('forum_page.html')
 
 ''' ВРЕМЕННО, ПОТОМ ПЕРЕДЕЛАТЬ НОРМАЛЬНО!!! '''
-@bp.route('/question/1')
+@bp.route('/1')
 def auestion1():
     return render_template('question1.html')
