@@ -65,3 +65,6 @@ def register():
 def register_page():
     return render_template('register.html')
 
+@bp.route('/forum_page')
+def forum_template():
+    return render_template('forum_page.html')
