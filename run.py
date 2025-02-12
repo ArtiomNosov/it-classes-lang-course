@@ -11,5 +11,5 @@ app.register_blueprint(route_bp)
 
 if __name__ == '__main__':
     create_db.create_db()
-    view_database()
+    # view_database()
     app.run(debug=any)
