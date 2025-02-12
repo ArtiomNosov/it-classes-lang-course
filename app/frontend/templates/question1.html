@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вопрос: Как сложить две переменные?</title>
+    <link rel="stylesheet" href="static/css/styles_forum.css">
+</head>
+<body>
+    <header>
+        <div class="logo"><span>C++</span></div>
+        <nav>
+            <button id="course-button">Курс</button>
+            <button id="forum-button" class="active">Форум</button> <!-- Кнопка форума активная -->
+        </nav>
+        <div class="auth">
+            <a href="#">Вход</a>
+            <a href="#">Регистрация</a>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h1>Как сложить две переменные?</h1>
+            <p>Автор: denis-sadovnik | Опубликовано: 2 апреля 2024</p>
+            
+            <div class="question-details">
+                <h2>Ответы пользователей</h2>
+                <div class="answer">
+                    <p class="user">Ответил: pele68</p> </br> <!-- Добавлено имя пользователя -->
+                    <p>Для сложения двух переменных в C++ можно использовать оператор `+`:</p>
+                    <pre>
+            int a = 5;
+            int b = 10;
+            int sum = a + b;
+            std::cout << "Сумма: " << sum;
+                    </pre>
+                    <p>Пример работает для целых чисел. Если используете другие типы данных, убедитесь, что их можно складывать.</p>
+                </div>
+            </div>
+            
+
+            <div class="vote-section">
+                <h2>Ваш голос</h2>
+                <button class="vote-button upvote"> 
+                    <img src="static/images/arrowUp.png" alt="Поднять" width="20"> Поднять
+                </button>
+                <button class="vote-button downvote">
+                    <img src="static/images/arrowDown.png" alt="Опустить" width="20"> Опустить
+                </button>
+            </div>
+
+            <div class="add-answer">
+                <h2>Добавить свой ответ</h2>
+                <textarea placeholder="Введите ваш ответ здесь..."></textarea>
+                <button>Отправить</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
