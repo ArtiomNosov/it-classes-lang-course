@@ -4,7 +4,7 @@ from app.db import passwords
 
 def save_user_to_db(username, email, password):
     try:
-        conn = sqlite3.connect('app/db/users.db')
+        conn = sqlite3.connect('app/db/forum.db')
         cursor = conn.cursor()
 
         # Проверяем, существует ли пользователь с данным email или username
@@ -38,7 +38,7 @@ def save_user_to_db(username, email, password):
 
 
 def authenticate_user(username, password_to_check):
-    conn = sqlite3.connect('app/db/users.db')
+    conn = sqlite3.connect('app/db/forum.db')
     cursor = conn.cursor()
 
     # Получаем хэш пароля пользователя по логину (username)
@@ -66,7 +66,7 @@ import os
 def view_database():
     # Подключаемся к базе данных
     # db_path = os.path.abspath()
-    conn = sqlite3.connect('app/db/users.db')
+    conn = sqlite3.connect('app/db/forum.db')
     cursor = conn.cursor()
     
     # Проверяем список таблиц

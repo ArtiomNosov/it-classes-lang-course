@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вопрос: Как сложить две переменные?</title>
-    <link rel="stylesheet" href="static/css/styles_forum.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_forum.css') }}">
 </head>
 <body>
     <header>
@@ -14,8 +14,8 @@
             <button id="forum-button" class="active">Форум</button> <!-- Кнопка форума активная -->
         </nav>
         <div class="auth">
-            <a href="#">Вход</a>
-            <a href="#">Регистрация</a>
+            <a href="/login">Вход</a>
+            <a href="/register">Регистрация</a>
         </div>
     </header>
     <main>
@@ -37,15 +37,14 @@
                     <p>Пример работает для целых чисел. Если используете другие типы данных, убедитесь, что их можно складывать.</p>
                 </div>
             </div>
-            
 
             <div class="vote-section">
                 <h2>Ваш голос</h2>
                 <button class="vote-button upvote"> 
-                    <img src="static/images/arrowUp.png" alt="Поднять" width="20"> Поднять
+                    <img src="{{ url_for('static', filename='images/arrowUp.png') }}" alt="Поднять" width="20"> Поднять
                 </button>
                 <button class="vote-button downvote">
-                    <img src="static/images/arrowDown.png" alt="Опустить" width="20"> Опустить
+                    <img src="{{ url_for('static', filename='images/arrowDown.png') }}" alt="Опустить" width="20"> Опустить
                 </button>
             </div>
 
