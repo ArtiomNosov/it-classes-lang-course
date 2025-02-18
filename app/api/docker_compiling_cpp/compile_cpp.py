@@ -2,11 +2,9 @@ import os
 import subprocess
 
 def compile_cpp(code: str) -> str:
-    # Определяем текущую директорию
     current_dir = os.getcwd()
     cpp_dir = os.path.join(current_dir, "app/api/docker_compiling_cpp")
-    
-    # Команда для запуска контейнера
+
     command = [
         "docker", "run", "--rm",
         "-v", f"{cpp_dir}:/usr/src/app",
@@ -16,11 +14,11 @@ def compile_cpp(code: str) -> str:
     ]
 
     try:
-        # Запускаем команду и получаем вывод
         result = subprocess.run(command, capture_output=True, text=True, check=True)
+        print(f"Compilation success: {result.stdout}")
         return result.stdout
     except subprocess.CalledProcessError as e:
-        print("An error occurred with docker:")
+        print(f"Compilation failed: {e.stderr}")
         return e.stderr
 
 def save_cpp() -> str: # Возвращает скомпилированный код в виде строки

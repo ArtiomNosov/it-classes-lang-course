@@ -17,7 +17,7 @@ def get_code():
         file_path = "app/api/docker_compiling_cpp/main.cpp"
         with open(file_path, 'w') as file:
             file.write(code)
-
+        print("открыл код")
         # Компилируем код
         result = save_cpp()
 
@@ -28,6 +28,7 @@ def get_code():
         }), 200
     except Exception as e:
         # Возвращаем JSON-ответ при ошибке
+        print(str(e))
         return jsonify({"error": str(e)}), 500
 
 
