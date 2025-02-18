@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Курс C++</title>
+  <link rel="stylesheet" href="static/css/styles_course_page.css">
+</head>
+<body>
+    <header>
+        <div class="logo"><span>C++</span></div>
+        <nav>
+            <button id="course-button">Курс</button>
+            <button id="forum-button" class="active">Форум</button>
+        </nav>
+        <div class="auth">
+            <a href="#">Вход</a>
+            <a href="#">Регистрация</a>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="course-editor">
+                <div class="course-content">
+                    <h2>Тема: Переменные в C++</h2>
+                    <p><strong>1. Введение в переменные</strong></p>
+                    <p>Переменные — это именованные области памяти, которые используются для хранения данных.</p>
+                    <h3>Пример объявления переменной</h3>
+                    <pre><code>int age = 25;</code></pre>
+                    <p class="front-ul">В этом примере:</p>
+                    <ul>
+                        <li><code>int</code> – тип данных (целое число),</li>
+                        <li><code>age</code> – имя переменной,</li>
+                        <li><code>25</code> – значение, присвоенное переменной.</li>
+                    </ul>
+                    <p><strong>2. Типы данных в C++</strong></p>
+                    <table>
+                        <tr>
+                            <th>Тип данных</th>
+                            <th>Описание</th>
+                            <th>Пример</th>
+                        </tr>
+                        <tr>
+                            <td>int</td>
+                            <td>Целые числа</td>
+                            <td><code>int a = 10;</code></td>
+                        </tr>
+                        <tr>
+                            <td>float</td>
+                            <td>Числа с плавающей точкой</td>
+                            <td><code>float pi = 3.14;</code></td>
+                        </tr>
+                        <tr>
+                            <td>double</td>
+                            <td>Дробные числа с высокой точностью</td>
+                            <td><code>double e = 2.71828;</code></td>
+                        </tr>
+                        <tr>
+                            <td>char</td>
+                            <td>Символ</td>
+                            <td><code>char letter = 'A';</code></td>
+                        </tr>
+                        <tr>
+                            <td>bool</td>
+                            <td>Логический тип (true/false)</td>
+                            <td><code>bool isReady = true;</code></td>
+                        </tr>
+                        <tr>
+                            <td>string</td>
+                            <td>Строка текста (требует <code>#include &lt;string&gt;</code>)</td>
+                            <td><code>string name = "Alex";</code></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Ресайзер -->
+                <div class="resizer"></div>
+
+                <div class="code-editor">
+                    <div class="tabs">
+                        <button id="tab-editor" class="active">Редактор</button>
+                        <button id="tab-output">Вывод</button>
+                    </div>
+                    <div class="tab-content">
+                        <div id="editor-content" class="content-panel">
+                            <textarea id="code" placeholder="Напишите ваш код здесь..."></textarea>
+                            <button id="run">Запустить</button>
+                        </div>
+                        <div id="output-content" class="content-panel" style="display: none;">
+                            <pre id="compiledOutput">Результат выполнения кода появится здесь.</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        async function submitCode() {
+            const code = document.getElementById('code').value;
+            try {
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ code: code }),
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    document.getElementById('compiledOutput').textContent = "Ошибка: " + (errorData.error || 'Неизвестная ошибка');
+                    return;
+                }
+                else {console.log("ok coded");}
+                const result = await response.json();
+                document.getElementById('compiledOutput').textContent = result.compiled_output;
+
+                // Переключаемся на вкладку вывода
+                document.getElementById('editor-content').style.display = 'none';
+                document.getElementById('output-content').style.display = 'block';
+            } catch (error) {
+                document.getElementById('compiledOutput').textContent = "Ошибка запроса: " + error.message;
+            }
+        }
+
+        document.getElementById('run').addEventListener('click', submitCode);
+
+        document.getElementById('tab-editor').addEventListener('click', () => {
+            document.getElementById('editor-content').style.display = 'block';
+            document.getElementById('output-content').style.display = 'none';
+        });
+
+        document.getElementById('tab-output').addEventListener('click', () => {
+            document.getElementById('editor-content').style.display = 'none';
+            document.getElementById('output-content').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

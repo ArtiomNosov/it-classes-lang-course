@@ -1,0 +1,232 @@
+/* Сброс стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Шапка */
+header {
+    display: flex;
+    justify-content: space-between; /* Размещает содержимое по краям */
+    align-items: center; /* Выравнивает элементы по вертикали */
+    padding: 10px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+}
+
+.logo {
+    display: flex;
+    align-items: center; /* Выравнивает логотип по вертикали */
+}
+
+nav {
+    display: flex;
+    gap: 10px;
+    padding-left: 15px;
+}
+
+header .logo span {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #007acc;
+}
+
+.auth {
+    margin-left: auto; /* Сдвигает блок аутентификации вправо */
+    display: flex;
+    gap: 10px; /* Расстояние между ссылками */
+}
+
+header .auth a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #747474;
+    font-weight: lighter;
+}
+
+header nav button {
+    padding: 10px 20px;
+    border: none;
+    background-color: transparent;
+    color: #007acc;
+    font-weight: bolder;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+header nav button.active,
+header nav button:hover {
+    background-color: #007acc;
+    color: #fff;
+}
+/* Основной контейнер */
+.container {
+    margin: 80px auto 20px;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+/* Область с курсом и редактором (две панели) */
+.course-editor {
+    display: flex;
+    height: calc(100vh - 140px);
+    /* Высота окна минус высота шапки и отступы */
+}
+
+/* Левая панель: содержание курса */
+.course-content {
+    width: 50%;
+    padding: 30px;
+    /* Увеличенный внутренний отступ */
+    overflow: auto;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    line-height: 1.6;
+    /* Удобный интерлиньяж */
+}
+
+/* Отступы и оформление заголовков в левой панели */
+.course-content h2 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #007acc;
+    padding-bottom: 10px;
+}
+
+.course-content h3,
+.course-content h4 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+/* Отступы для абзацев */
+.course-content p {
+    margin-bottom: 15px;
+}
+
+.front-ul {
+    margin-bottom: 5px !important;
+}
+
+/* Отступы для блоков кода */
+.course-content pre {
+    margin-bottom: 20px;
+    background: #f4f4f4;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+/* Правая панель: редактор кода и вывод */
+.code-editor {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Разделительная линия (ресайзер) */
+.resizer {
+    width: 5px;
+    background: #ccc;
+    cursor: ew-resize;
+}
+
+/* Стили для табов в правой панели */
+/* Стили для табов в правой панели */
+.tabs {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+}
+
+.tabs button {
+    flex: 1;
+    padding: 10px;
+    background: #f4f4f4;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+/* Эффект наведения */
+.tabs button:hover {
+    background: #e0e0e0;
+}
+
+.tabs button.active {
+    background: #fff;
+    border-bottom: 2px solid #007acc;
+    font-weight: bold;
+}
+
+
+.content-panel {
+    display: block;
+}
+
+/* Стили для редактора кода */
+textarea {
+    width: 100%;
+    height: 730px;
+    font-family: monospace;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Оставляем серую рамку даже при фокусе */
+textarea:focus {
+    outline: none;
+    border: 1px solid #ccc;
+}
+
+/* Кнопка запуска */
+button#run {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007acc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Стили для кода внутри pre */
+pre {
+    background: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+/* Стили для таблиц */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+ul {
+    list-style-type: disc;
+    /* Круглые точки */
+    padding-left: 18px;
+    padding-bottom: 20px;
+}
