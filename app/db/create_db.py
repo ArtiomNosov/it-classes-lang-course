@@ -8,16 +8,18 @@ def create_db():
 
     # Создаём таблицу users, если она ещё не существует
     cursor.execute('''
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE NOT NULL,
-            email TEXT UNIQUE NOT NULL,
-            password TEXT NOT NULL,
-            likes INTEGER DEFAULT 0,
-            levels_completed INTEGER DEFAULT 0
-        )
-    ''')
-
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT UNIQUE NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        password TEXT NOT NULL,
+        likes INTEGER DEFAULT 0,
+        levels_completed INTEGER DEFAULT 0,
+        questions_count INTEGER DEFAULT 0,   -- Количество заданных вопросов
+        answers_count INTEGER DEFAULT 0,     -- Количество ответов
+        registration_date TEXT DEFAULT (CURRENT_TIMESTAMP)  -- Дата регистрации
+    )
+''')
     # Создаём таблицу questions, если она ещё не существует
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS questions (

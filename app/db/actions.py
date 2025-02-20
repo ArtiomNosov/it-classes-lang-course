@@ -86,3 +86,14 @@ def view_database():
 
     # Закрываем соединение
     conn.close()
+
+def get_user_by_username(username):
+    conn = sqlite3.connect('app/db/forum.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT id, username, email FROM users WHERE username = ?', (username,))
+    user = cursor.fetchone()
+    conn.close()
+
+    if user:
+        return {'id': user[0], 'username': user[1], 'email': user[2]}
+    return None
