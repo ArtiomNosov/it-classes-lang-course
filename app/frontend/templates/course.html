@@ -5,17 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Курс C++</title>
   <link rel="stylesheet" href="static/css/styles_course_page.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/eclipse.min.css">
 </head>
 <body>
     <header>
-        <div class="logo"><span>C++</span></div>
+        <div class="logo">
+            <a href="/">
+                <img src="static/images/logo.png" alt="Логотип сайта" />
+            </a>
+        </div>
         <nav>
             <button id="course-button" class="active">Курс</button>
             <button id="forum-button">Форум</button>
         </nav>
         <div class="auth">
-            <a href="#">Вход</a>
-            <a href="#">Регистрация</a>
+            <a href="/login">Вход</a>
+            <a href="/register">Регистрация</a>
+            <a href="/profile" class="user-avatar">
+                <img src="static/images/user-avatar.png" alt="Профиль" />
+            </a>
         </div>
     </header>
     <main>
@@ -73,7 +82,6 @@
                     </table>
                 </div>
 
-                <!-- Ресайзер -->
                 <div class="resizer"></div>
 
                 <div class="code-editor">
@@ -83,8 +91,8 @@
                     </div>
                     <div class="tab-content">
                         <div id="editor-content" class="content-panel">
-                            <textarea id="code" placeholder="Напишите ваш код здесь..."></textarea>
-                            <button id="run">Запустить</button>
+                            <textarea id="code"></textarea>
+                            <button id="run" style="margin-left: 10px;">Запустить</button>
                         </div>
                         <div id="output-content" class="content-panel" style="display: none;">
                             <pre id="compiledOutput">Результат выполнения кода появится здесь.</pre>
@@ -95,9 +103,31 @@
         </div>
     </main>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/addon/edit/matchbrackets.min.js"></script>
     <script>
+        const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+            mode: "text/x-c++src",
+            theme: "eclipse",
+            lineNumbers: true,
+            autoCloseBrackets: true,
+            matchBrackets: true
+        });
+
+        // Восстановление кода из localStorage
+        const savedCode = localStorage.getItem("cpp_code");
+        if (savedCode) {
+            editor.setValue(savedCode);
+        }
+
+        editor.on("change", () => {
+            localStorage.setItem("cpp_code", editor.getValue());
+        });
+
         async function submitCode() {
-            const code = document.getElementById('code').value;
+            const code = editor.getValue();
             try {
                 const response = await fetch('/submit', {
                     method: 'POST',
@@ -112,11 +142,9 @@
                     document.getElementById('compiledOutput').textContent = "Ошибка: " + (errorData.error || 'Неизвестная ошибка');
                     return;
                 }
-                else {console.log("ok coded");}
+                
                 const result = await response.json();
                 document.getElementById('compiledOutput').textContent = result.compiled_output;
-
-                // Переключаемся на вкладку вывода
                 document.getElementById('editor-content').style.display = 'none';
                 document.getElementById('output-content').style.display = 'block';
             } catch (error) {

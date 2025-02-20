@@ -230,3 +230,7 @@ ul {
     padding-left: 18px;
     padding-bottom: 20px;
 }
+.logo img {
+    height: 50px; /* или подстрой под твой дизайн */
+    object-fit: contain;
+}

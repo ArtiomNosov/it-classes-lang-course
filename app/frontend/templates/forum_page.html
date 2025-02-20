@@ -8,14 +8,21 @@
 </head>
 <body>
     <header>
-        <div class="logo"><span>C++</span></div>
+        <div class="logo">
+            <a href="/">
+                <img src="static/images/logo.png" alt="Логотип сайта" />
+            </a>
+        </div>
         <nav>
-            <button id="course-button">Курс</button>
-            <button id="forum-button" class="active">Форум</button> <!-- Кнопка форума активная -->
+            <button id="course-button" class="active">Курс</button>
+            <button id="forum-button">Форум</button>
         </nav>
         <div class="auth">
             <a href="/login">Вход</a>
             <a href="/register">Регистрация</a>
+            <a href="/profile" class="user-avatar">
+                <img src="static/images/user-avatar.png" alt="Профиль" />
+            </a>
         </div>
     </header>
     <main>
@@ -27,7 +34,7 @@
             </div>
             <div class="questions">
                 <div class="question">
-                    <a href="/1">Как сложить две переменные?</a>
+                    <a href="/question/1">Как сложить две переменные?</a>
                     <div class="meta">0 голосов | 0 ответов | denis-sadovnik | 2 апреля 2024</div>
                 </div>
                 <div class="question">

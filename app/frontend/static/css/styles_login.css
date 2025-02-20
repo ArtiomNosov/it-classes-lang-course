@@ -19,7 +19,7 @@ body {
 }
 
 h1 {
-    color: #00a8ff;
+    color: #007acc;
     margin-bottom: 20px;
     font-size: 24px;
 }
@@ -62,7 +62,7 @@ input {
 }
 
 button.btn {
-    background-color: #00a8ff;
+    background-color: #007acc   ;
     color: white;
     border: none;
     padding: 10px 0;
@@ -73,11 +73,11 @@ button.btn {
 }
 
 button.btn:hover {
-    background-color: #007bbf;
+    background-color: #007acc;
 }
 
 a {
-    color: #00a8ff;
+    color: #007acc;
     text-decoration: none;
     font-size: 14px;
 }
@@ -88,4 +88,8 @@ a:hover {
 
 p {
     margin-top: 15px;
+}
+.logo img {
+    height: 50px; /* или подстрой под твой дизайн */
+    object-fit: contain;
 }

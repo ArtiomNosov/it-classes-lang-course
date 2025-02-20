@@ -221,3 +221,7 @@ main {
 .user {
     color:#333;
 }
+.logo img {
+    height: 50px; /* или подстрой под твой дизайн */
+    object-fit: contain;
+}
