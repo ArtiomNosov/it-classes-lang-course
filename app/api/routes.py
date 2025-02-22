@@ -17,26 +17,6 @@ def forum_page():
 def login_page():
     return render_template('login.html')
 
-@bp.route('/submit_login', methods=['POST'])
-def login():
-    # Получаем данные из запроса
-    data = request.json
-    username = data.get('username')
-    password = data.get('password')
-    remember_me = data.get('remember_me')
-    print(username,password,remember_me)
-    # Проверяем полученные данные
-    
-    if not username or not password:
-        return jsonify({'message': 'Логин и пароль обязательны'}), 400
-
-    
-
-    # Например, проверяем пользователя в базе данных
-    if authenticate_user(username, password):  # Здесь пример проверки
-        return jsonify({'message': 'Успешный вход', 'username': username}), 200
-    else:
-        return jsonify({'message': 'Неверный логин или пароль'}), 401
 
 @bp.route('/new_register', methods = ['POST'])
 def register():
