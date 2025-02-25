@@ -54,7 +54,7 @@
                 if (response.ok) {
                     const data = await response.json();
                     alert(`Ваш вопрос "${data.title}" успешно отправлен!`);
-                    window.location.href = '/questions'; // Перенаправление на страницу с вопросами
+                    window.location.href = '/my_questions'; // Перенаправление на страницу с вопросами
                 } else {
                     const error = await response.json();
                     alert(`Ошибка: ${error.message}`);

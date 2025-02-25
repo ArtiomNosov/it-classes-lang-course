@@ -126,3 +126,39 @@ def save_question_to_db(title, body, author_id):
     finally:
         # Закрываем соединение с базой данных
         conn.close()
+
+def get_user_questions(user_id):
+    """
+    Получает все вопросы, заданные пользователем, из базы данных.
+
+    :param user_id: ID пользователя (int)
+    :return: Список словарей с данными вопросов
+    """
+    conn = sqlite3.connect('app/db/forum.db')  # Замените на путь к вашей базе данных
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute('''
+            SELECT id, title, body, likes, created_at
+            FROM questions
+            WHERE author_id = ?
+            ORDER BY created_at DESC
+        ''', (user_id,))
+        rows = cursor.fetchall()
+
+        # Преобразуем результат в список словарей
+        questions = []
+        for row in rows:
+            questions.append({
+                'id': row[0],
+                'title': row[1],
+                'body': row[2],
+                'likes': row[3],
+                'created_at': row[4]
+            })
+        return questions
+    except sqlite3.Error as e:
+        print(f"Ошибка при получении вопросов: {e}")
+        return []
+    finally:
+        conn.close()

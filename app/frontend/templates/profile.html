@@ -3,14 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Профиль пользователя</title>
+    <title>Главная страница</title>
     <link rel="stylesheet" href="/static/css/profile.css">
 </head>
 <body>
+    <!-- Хедер -->
+    <header>
+        <div class="logo">
+            <a href="/">
+                <img src="/static/images/logo.png" alt="Логотип сайта">
+            </a>
+        </div>
+        <nav class="main-nav">
+            <button onclick="location.href='/'" class="nav-btn">Курс</button>
+            <button onclick="location.href='/forum'" class="nav-btn">Форум</button>
+        </nav>
+        <div class="auth">
+            <a href="/login">Вход</a>
+            <a href="/register">Регистрация</a>
+            <a href="/profile" class="user-avatar">
+                <img src="/static/images/user-avatar.png" alt="Профиль">
+            </a>
+        </div>
+    </header>
+
+    <!-- Основной контейнер профиля -->
     <div class="profile-container">
         <h1>Профиль пользователя</h1>
         <div class="profile-card">
-            <img src="/static/avatar.png" alt="Аватар" class="avatar">
             <h2>{{ user.username }}</h2>
             <p>Email: {{ user.email }}</p>
             <p>Дата регистрации: {{ user.registration_date }}</p>
@@ -21,5 +41,8 @@
             <a href="/logout" class="logout-btn">Выйти</a>
         </div>
     </div>
+
+
+
 </body>
 </html>
