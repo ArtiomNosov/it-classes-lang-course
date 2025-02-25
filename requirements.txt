@@ -1,2 +1,4 @@
 flask == 3.0.2
 bcrypt == 3.2.2
+gunicorn
+requests

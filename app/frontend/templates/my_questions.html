@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои вопросы</title>
+    <link rel="stylesheet" href="/static/css/my_questions.css">
+</head>
+<body>
+    <!-- Хедер -->
+    <header>
+        <div class="logo">
+            <a href="/">
+                <img src="/static/images/logo.png" alt="Логотип сайта">
+            </a>
+        </div>
+        <nav class="main-nav">
+            <button onclick="location.href='/course'" class="nav-btn">Курс</button>
+            <button onclick="location.href='/forum'" class="nav-btn">Форум</button>
+        </nav>
+        <div class="auth">
+            <a href="/login">Вход</a>
+            <a href="/register">Регистрация</a>
+            <a href="/profile" class="user-avatar">
+                <img src="/static/images/user-avatar.png" alt="Профиль">
+            </a>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main>
+        <div class="section-container">
+            <h1>Мои вопросы</h1>
+            {% if questions %}
+                <div class="questions-list">
+                    {% for question in questions %}
+                        <div class="question">
+                            <h2><a href="/question/{{ question.id }}">{{ question.title }}</a></h2>
+                            <p>{{ question.body }}</p>
+                            <div class="meta">
+                                Лайков: {{ question.likes }} | Дата: {{ question.created_at }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>У вас пока нет заданных вопросов.</p>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>

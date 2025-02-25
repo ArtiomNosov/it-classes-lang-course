@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задать вопрос</title>
+    <link rel="stylesheet" href="/static/css/ask_question.css">
+</head>
+<body>
+    <!-- Хедер с логотипом -->
+    <div class="header">
+        <a href="/" class="logo-link">
+            <img src="/static/images/logo.png" alt="Логотип" class="logo">
+        </a>
+    </div>
+
+    <!-- Основной контейнер -->
+    <div class="container">
+        <h1>ЗАДАТЬ ВОПРОС</h1>
+        <form id="ask-question-form">
+            <!-- Поле для заголовка вопроса -->
+            <label for="question-title">ЗАГОЛОВОК *</label>
+            <input type="text" id="question-title" placeholder="Введите заголовок вопроса" required>
+
+            <!-- Поле для текста вопроса -->
+            <label for="question-text">ТЕКСТ ВОПРОСА *</label>
+            <textarea id="question-text" placeholder="Опишите ваш вопрос подробно" rows="6" required></textarea>
+
+            <!-- Кнопка отправки -->
+            <button type="submit" class="btn">Отправить вопрос</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('ask-question-form').addEventListener('submit', async (event) => {
+            event.preventDefault(); // Предотвращаем перезагрузку страницы
+
+            // Собираем данные из формы
+            const title = document.getElementById('question-title').value;
+            const text = document.getElementById('question-text').value;
+
+            try {
+                const response = await fetch('/submit_question', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        title: title,
+                        text: text,
+                    }),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    alert(`Ваш вопрос "${data.title}" успешно отправлен!`);
+                    window.location.href = '/my_questions'; // Перенаправление на страницу с вопросами
+                } else {
+                    const error = await response.json();
+                    alert(`Ошибка: ${error.message}`);
+                }
+            } catch (err) {
+                console.error('Ошибка запроса:', err);
+                alert('Произошла ошибка при отправке вопроса.');
+            }
+        });
+    </script>
+</body>
+</html>

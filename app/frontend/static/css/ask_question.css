@@ -1,0 +1,95 @@
+/* Общие стили */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f5f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Хедер */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+}
+
+.logo-link {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.logo {
+    width: 50px;
+    height: auto;
+    cursor: pointer;
+}
+
+/* Основной контейнер */
+.container {
+    margin-top: 80px; /* Отступ под хедер */
+    width: 400px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Заголовок */
+h1 {
+    color: #007acc;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Метки */
+label {
+    display: block;
+    text-align: left;
+    margin: 10px 0 5px;
+    color: gray;
+    font-size: 12px;
+    text-transform: none;
+}
+
+/* Поля ввода */
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Текстовое поле */
+textarea {
+    resize: none; /* Запрещаем изменение размера */
+}
+
+/* Кнопка */
+button.btn {
+    background-color: #007acc;
+    color: white;
+    border: none;
+    padding: 10px 0;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button.btn:hover {
+    background-color: #005f99;
+}

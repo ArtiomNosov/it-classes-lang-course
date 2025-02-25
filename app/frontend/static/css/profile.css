@@ -1,0 +1,173 @@
+/* Сброс стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Хедер */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ccc;
+    z-index: 1000;
+}
+
+/* Логотип */
+header .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Расстояние между логотипом и текстом */
+}
+
+header .logo img {
+    height: 50px;
+    object-fit: contain;
+}
+
+header .logo span {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #007acc;
+}
+
+/* Навигация (кнопки "Курс" и "Форум") */
+header .main-nav {
+    display: flex;
+    gap: 10px; /* Расстояние между кнопками */
+    margin-left: 20px; /* Отступ от логотипа */
+}
+
+header .main-nav button {
+    padding: 10px 20px;
+    border: none;
+    background-color: transparent;
+    color: #007acc;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+header .main-nav button.active,
+header .main-nav button:hover {
+    background-color: #007acc;
+    color: #fff;
+}
+
+/* Блок авторизации */
+header .auth {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Расстояние между элементами */
+}
+
+header .auth a {
+    text-decoration: none;
+    color: #747474;
+    font-weight: lighter;
+}
+
+header .auth .user-avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+header .auth .user-avatar img:hover {
+    transform: scale(1.1);
+}
+
+/* Основной контент */
+main {
+    max-width: 1200px;
+    margin: 80px auto 20px; /* Отступ сверху для корректной работы с фиксированным хедером */
+    padding: 0 20px;
+}
+
+.section-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-bottom: 20px;
+}
+
+.banner-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.banner-text-left,
+.banner-text-right {
+    flex: 1;
+    text-align: center;
+}
+
+.banner-image img {
+    width: 324px;
+    height: 328px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+/* Общий контейнер профиля */
+.profile-container {
+    text-align: center; /* Выравнивание текста по центру */
+    margin-top: 80px; /* Отступ сверху для корректной работы с фиксированным хедером */
+}
+
+/* Карточка профиля */
+.profile-card {
+    background-color: #eef8ff; /* Бледно-синий фон */
+    border: 1px solid #d1e5f5;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0 auto; /* Центрирование карточки по горизонтали */
+    max-width: 500px; /* Максимальная ширина карточки */
+    text-align: center; /* Выравнивание текста внутри карточки по центру */
+}
+
+/* Заголовки и параграфы */
+.profile-card h2,
+.profile-card p {
+    margin: 10px 0; /* Отступы между элементами */
+    font-size: 1rem; /* Размер шрифта */
+    color: #333; /* Цвет текста */
+}
+
+/* Кнопка выхода */
+.logout-btn {
+    display: inline-block;
+    background-color: #007acc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #005f99;
+}

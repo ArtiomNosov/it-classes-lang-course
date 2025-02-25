@@ -8,6 +8,16 @@ body {
     align-items: center;
     height: 100vh;
 }
+.header {
+    position: fixed; /* Фиксированное положение */
+    top: 0; /* Прижат к верху */
+    left: 0; /* Прижат к левому краю */
+    width: 100%; /* Занимает всю ширину экрана */
+    padding: 10px 20px; /* Отступы внутри хедера */
+    z-index: 1000; /* Чтобы хедер был поверх других элементов */
+    display: flex; /* Используем флексбокс для выравнивания */
+    align-items: center; /* Выравнивание по вертикали */
+}
 
 .container {
     width: 400px;
@@ -89,7 +99,13 @@ a:hover {
 p {
     margin-top: 15px;
 }
-.logo img {
-    height: 50px; /* или подстрой под твой дизайн */
-    object-fit: contain;
+.logo-link {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.logo {
+    width: 50px; /* Размер логотипа */
+    height: auto;
+    cursor: pointer;
 }

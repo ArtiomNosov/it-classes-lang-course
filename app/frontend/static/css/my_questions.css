@@ -1,3 +1,31 @@
+/* Стиль для списка вопросов */
+.questions-list {
+    margin-top: 20px;
+}
+
+.question {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.question h2 {
+    margin: 0 0 10px;
+    font-size: 1.2rem;
+    color: #007acc;
+}
+
+.question p {
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.question .meta {
+    font-size: 0.9rem;
+    color: #777;
+}
 * {
     margin: 0;
     padding: 0;
