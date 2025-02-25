@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ question.title }}</title>
+    <link rel="stylesheet" href="/static/css/my_questions.css">
+</head>
+<body>
+    <!-- Хедер -->
+    <header>
+        <div class="logo">
+            <a href="/">
+                <img src="/static/images/logo.png" alt="Логотип сайта">
+            </a>
+        </div>
+        <nav class="main-nav">
+            <button onclick="location.href='/course'" class="nav-btn">Курс</button>
+            <button onclick="location.href='/forum'" class="nav-btn">Форум</button>
+        </nav>
+        <div class="auth">
+            <a href="/login">Вход</a>
+            <a href="/register">Регистрация</a>
+            <a href="/profile" class="user-avatar">
+                <img src="/static/images/user-avatar.png" alt="Профиль">
+            </a>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main>
+        <div class="section-container">
+            <h1>{{ question.title }}</h1>
+            <p>{{ question.body }}</p>
+            <div class="meta">
+                Дата: {{ question.created_at }}
+            </div>
+
+            <!-- Блок с голосами -->
+            <div class="vote-counter">
+                <button id="upvote-btn" class="vote-btn" data-question-id="{{ question.id }}">
+                    👍
+                </button>
+                <span id="vote-count">{{ question.likes }}</span>
+                <button id="downvote-btn" class="vote-btn" data-question-id="{{ question.id }}">
+                    👎
+                </button>
+            </div>
+
+            <a href="/my_questions" class="back-btn">Назад к моим вопросам</a>
+        </div>
+    </main>
+
+    <!-- JavaScript для обработки голосов -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const upvoteBtn = document.getElementById('upvote-btn');
+            const downvoteBtn = document.getElementById('downvote-btn');
+            const voteCount = document.getElementById('vote-count');
+
+            // Обработчик для кнопки "лайка"
+            upvoteBtn.addEventListener('click', async () => {
+                const questionId = upvoteBtn.getAttribute('data-question-id');
+                const response = await fetch(`/vote/${questionId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ action: 'upvote' }),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    voteCount.textContent = data.likes;
+                } else {
+                    alert('Ошибка при голосовании.');
+                }
+            });
+
+            // Обработчик для кнопки "дизлайка"
+            downvoteBtn.addEventListener('click', async () => {
+                const questionId = downvoteBtn.getAttribute('data-question-id');
+                const response = await fetch(`/vote/${questionId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ action: 'downvote' }),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    voteCount.textContent = data.likes;
+                } else {
+                    alert('Ошибка при голосовании.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

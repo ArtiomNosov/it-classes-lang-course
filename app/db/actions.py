@@ -162,3 +162,99 @@ def get_user_questions(user_id):
         return []
     finally:
         conn.close()
+
+def get_question_by_id(question_id):
+    """
+    Получает данные вопроса из базы данных по его ID.
+
+    :param question_id: ID вопроса (int)
+    :return: Словарь с данными вопроса или None, если вопрос не найден
+    """
+    conn = sqlite3.connect('app/db/forum.db')  # Замените на путь к вашей базе данных
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute('''
+            SELECT id, title, body, author_id, likes, created_at
+            FROM questions
+            WHERE id = ?
+        ''', (question_id,))
+        row = cursor.fetchone()
+
+        if row:
+            return {
+                'id': row[0],
+                'title': row[1],
+                'body': row[2],
+                'author_id': row[3],
+                'likes': row[4],
+                'created_at': row[5]
+            }
+        return None
+    except sqlite3.Error as e:
+        print(f"Ошибка при получении вопроса: {e}")
+        return None
+    finally:
+        conn.close()
+
+def update_votes(question_id, user_id, action):
+    """
+    Обновляет счетчик лайков для вопроса.
+    :param question_id: ID вопроса (int)
+    :param user_id: ID пользователя (int)
+    :param action: Действие ('upvote' или 'downvote')
+    :return: True, если обновление успешно, иначе False
+    """
+    conn = sqlite3.connect('app/db/forum.db')  # Замените на путь к вашей базе данных
+    cursor = conn.cursor()
+
+    try:
+        # Проверяем, голосовал ли пользователь ранее
+        cursor.execute('''
+            SELECT vote_type FROM votes
+            WHERE question_id = ? AND user_id = ?
+        ''', (question_id, user_id))
+        existing_vote = cursor.fetchone()
+
+        likes_change = 0  # Изменение счетчика лайков
+
+        if existing_vote:
+            old_vote_type = existing_vote[0]
+            if old_vote_type == action:
+                # Если пользователь повторно нажимает ту же кнопку, отменяем его голос
+                cursor.execute('''
+                    DELETE FROM votes
+                    WHERE question_id = ? AND user_id = ?
+                ''', (question_id, user_id))
+                likes_change = -1 if old_vote_type == 'upvote' else 1
+            else:
+                # Если пользователь меняет свой голос
+                cursor.execute('''
+                    UPDATE votes
+                    SET vote_type = ?
+                    WHERE question_id = ? AND user_id = ?
+                ''', (action, question_id, user_id))
+                likes_change = 2 if action == 'upvote' else -2
+        else:
+            # Если пользователь голосует впервые
+            cursor.execute('''
+                INSERT INTO votes (question_id, user_id, vote_type)
+                VALUES (?, ?, ?)
+            ''', (question_id, user_id, action))
+            likes_change = 1 if action == 'upvote' else -1
+
+        # Обновляем счетчик лайков в таблице questions
+        cursor.execute('''
+            UPDATE questions
+            SET likes = likes + ?
+            WHERE id = ?
+        ''', (likes_change, question_id))
+
+        conn.commit()
+        return True
+    except sqlite3.Error as e:
+        print(f"Ошибка при обновлении лайков: {e}")
+        conn.rollback()
+        return False
+    finally:
+        conn.close()

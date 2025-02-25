@@ -50,11 +50,6 @@ def forum_template():
     return render_template('forum_page.html')
 
 ''' ВРЕМЕННО, ПОТОМ ПЕРЕДЕЛАТЬ НОРМАЛЬНО!!! '''
-@bp.route('/question/1')
-def question1():
-    return render_template('question1.html')
-
-''' ВРЕМЕННО, ПОТОМ ПЕРЕДЕЛАТЬ НОРМАЛЬНО!!! '''
 @bp.route('/course1')
 def course1():
     return render_template('course.html')
