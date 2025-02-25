@@ -225,3 +225,48 @@ main {
     height: 50px; /* или подстрой под твой дизайн */
     object-fit: contain;
 }
+.user-avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.user-avatar img:hover {
+    transform: scale(1.1);
+}
+/* Стиль для кнопок */
+.btn {
+    display: inline-block;
+    background-color: #007acc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none; /* Убираем подчеркивание для ссылок */
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #005f99;
+}
+
+/* Стиль для кнопки внутри .buttons */
+.buttons button {
+    background-color: #007acc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.buttons button:hover {
+    background-color: #005f99;
+}

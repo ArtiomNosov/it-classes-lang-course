@@ -76,9 +76,9 @@ def view_database():
 
     # Выводим содержимое таблицы 'users' (если существует)
     try:
-        cursor.execute("SELECT * FROM users;")
+        cursor.execute("SELECT * FROM questions;")
         users = cursor.fetchall()
-        print("Содержимое таблицы 'users':")
+        print("Содержимое таблицы 'questions':")
         for user in users:
             print(user)
     except sqlite3.OperationalError as e:
@@ -97,3 +97,32 @@ def get_user_by_username(username):
     if user:
         return {'id': user[0], 'username': user[1], 'email': user[2]}
     return None
+
+def save_question_to_db(title, body, author_id):
+    """
+    Сохраняет новый вопрос в базу данных.
+
+    :param title: Заголовок вопроса (str)
+    :param body: Текст вопроса (str)
+    :param author_id: ID автора вопроса (int)
+    """
+    # Подключение к базе данных
+    conn = sqlite3.connect('app/db/forum.db')  # Замените 'your_database.db' на путь к вашей базе данных
+    cursor = conn.cursor()
+
+    try:
+        # Вставка данных в таблицу questions
+        cursor.execute('''
+            INSERT INTO questions (title, body, author_id, likes)
+            VALUES (?, ?, ?, ?)
+        ''', (title, body, author_id, 0))  # likes устанавливаем в 0 по умолчанию
+
+        # Фиксация изменений
+        conn.commit()
+    except sqlite3.Error as e:
+        # В случае ошибки выводим сообщение
+        print(f"Ошибка при сохранении вопроса: {e}")
+        conn.rollback()  # Откатываем изменения в случае ошибки
+    finally:
+        # Закрываем соединение с базой данных
+        conn.close()

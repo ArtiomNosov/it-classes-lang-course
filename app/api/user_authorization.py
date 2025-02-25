@@ -12,8 +12,9 @@ def login():
 
     if not username or not password:
         return jsonify({'message': 'Логин и пароль обязательны'}), 400
-
+    user = get_user_by_username(username)['id']
     if authenticate_user(username, password):  # Проверка аутентификации
+        session['user_id'] = user
         session['username'] = username  # Сохранение имени пользователя в сессии
         print(f"Session Username: {session.get('username')}")  # Логирование данных сессии
         return jsonify({'message': 'Все ок'}), 200

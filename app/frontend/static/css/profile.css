@@ -45,3 +45,15 @@ h1 {
     width: 100px;
     height: 1
 }
+.user-avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.user-avatar img:hover {
+    transform: scale(1.1);
+}

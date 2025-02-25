@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="static/css/styles_login.css">
 </head>
 <body>
+    <!-- Контейнер для логотипа -->
+    <div class="header">
+        <a href="/" class="logo-link">
+            <img src="/static/images/logo.png" alt="Логотип" class="logo">
+        </a>
+    </div>
+
     <div class="container">
         <div class="form-container">
             <h1>РЕГИСТРАЦИЯ</h1>
@@ -30,7 +37,6 @@
             </p>
         </div>
     </div>
-
     <script>
         document.getElementById('register-form').addEventListener('submit', async (event) => {
             event.preventDefault(); // Предотвращаем перезагрузку страницы
@@ -40,12 +46,10 @@
             const email = document.getElementById('reg-email').value;
             const password = document.getElementById('reg-password').value;
             const confirmPassword = document.getElementById('reg-confirm-password').value;
-
             if (password !== confirmPassword) {
                 alert('Пароли не совпадают');
                 return;
             }
-
             try {
                 const response = await fetch('/new_register', {
                     method: 'POST',
@@ -58,7 +62,6 @@
                         password: password,
                     }),
                 });
-
                 if (response.ok) {
                     const data = await response.json();
                     alert(`Пользователь ${data.username} успешно зарегистрирован!`);
