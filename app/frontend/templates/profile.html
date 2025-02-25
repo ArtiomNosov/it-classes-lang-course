@@ -1,3 +1,25 @@
-<h1>Профиль пользователя {{ user.username }}</h1>
-<p>Email: {{ user.email }}</p>
-<p>Дата регистрации: {{ user.registration_date }}</p>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль пользователя</title>
+    <link rel="stylesheet" href="/static/css/profile.css">
+</head>
+<body>
+    <div class="profile-container">
+        <h1>Профиль пользователя</h1>
+        <div class="profile-card">
+            <img src="/static/avatar.png" alt="Аватар" class="avatar">
+            <h2>{{ user.username }}</h2>
+            <p>Email: {{ user.email }}</p>
+            <p>Дата регистрации: {{ user.registration_date }}</p>
+            <p>Лайков: {{ user.likes }}</p>
+            <p>Пройдено уровней: {{ user.levels_completed }}</p>
+            <p>Заданных вопросов: {{ user.questions_count }}</p>
+            <p>Данных ответов: {{ user.answers_count }}</p>
+            <a href="/logout" class="logout-btn">Выйти</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+/* Общие настройки */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f9fd; /* Легкий синий фон */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Контейнер профиля */
+.profile-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Заголовок */
+h1 {
+    color: #007acc;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Карточка профиля */
+.profile-card {
+    background-color: #eef8ff; /* Бледно-синий фон */
+    border: 1px solid #d1e5f5;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 500px;
+    text-align: center;
+}
+
+/* Аватар */
+.avatar {
+    width: 100px;
+    height: 1
+}
