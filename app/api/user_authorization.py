@@ -6,6 +6,8 @@ bp = Blueprint('profile', __name__)
 # Маршрут для входа в систему
 from flask import jsonify, session
 
+from flask import jsonify, session
+
 @bp.route("/submit_login", methods=["POST"])
 def submit_login():
     # Получаем данные из запроса
@@ -13,17 +15,19 @@ def submit_login():
     username = data.get("username")
     password = data.get("password")
 
-    # Проверяем учетные данные
-    user = authenticate_user(username, password)  # Функция для проверки данных
-    if user:
-        # Сохраняем ID пользователя в сессии
-        session['user_id'] = user['id']
+    # Аутентифицируем пользователя
+    user = authenticate_user(username, password)
 
-        # Возвращаем JSON с ID пользователя
-        return jsonify({'user_id': user['id']}), 200
+    if user:
+        # Получаем ID пользователя
+        user_data = get_user_by_id(user['id'])  # Вызываем функцию с параметром
+        if user_data:
+            session['user_id'] = user_data['id']  # Сохраняем ID в сессии
+            return jsonify({'user_id': user_data['id']}), 200
+        else:
+            return jsonify({'message': 'Пользователь не найден'}), 404
     else:
         return jsonify({'message': 'Неверный логин или пароль'}), 401
-
 from flask import abort
 # Маршрут для просмотра профиля
 # @bp.route("/profile/<int:user_id>")

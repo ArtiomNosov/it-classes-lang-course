@@ -41,27 +41,31 @@ def authenticate_user(username, password_to_check):
     conn = sqlite3.connect('app/db/forum.db')
     cursor = conn.cursor()
 
-    # Получаем хэш пароля пользователя по логину (username)
-    cursor.execute('''
-        SELECT password FROM users WHERE username = ?
-    ''', (username,))
-    
-    stored_hash = cursor.fetchone()
+    try:
+        # Получаем хэш пароля и ID пользователя по логину
+        cursor.execute('''
+            SELECT id, username, password FROM users WHERE username = ?
+        ''', (username,))
+        user_data = cursor.fetchone()
 
-    conn.close()
+        if user_data:
+            user_id, username, stored_hash = user_data
 
-    if stored_hash:
-        # Проверяем пароль
-        if passwords.check_password(stored_hash[0], password_to_check):
-            print(f"Пользователь '{username}' успешно аутентифицирован.")
-            return True
+            # Проверяем пароль
+            if passwords.check_password(stored_hash, password_to_check):
+                print(f"Пользователь '{username}' успешно аутентифицирован.")
+                return {'id': user_id, 'username': username}  # Возвращаем данные пользователя
+            else:
+                print("Неверный пароль.")
+                return None
         else:
-            print("Неверный пароль.")
-            return False
-    else:
-        print("Пользователь не найден.")
-        return False
-
+            print("Пользователь не найден.")
+            return None
+    except sqlite3.Error as e:
+        print(f"Ошибка при аутентификации: {e}")
+        return None
+    finally:
+        conn.close()
 import os
 def view_database():
     # Подключаемся к базе данных
@@ -308,22 +312,13 @@ def get_user_by_id(user_id):
 
     try:
         cursor.execute('''
-            SELECT id, username, email, registration_date, questions_count, answers_count, likes
-            FROM users
+            SELECT id, username FROM users
             WHERE id = ?
         ''', (user_id,))
         row = cursor.fetchone()
 
         if row:
-            return {
-                'id': row[0],
-                'username': row[1],
-                'email': row[2],
-                'registration_date': row[3],
-                'questions_count': row[4],
-                'answers_count': row[5],
-                'likes': row[6]
-            }
+            return {'id': row[0], 'username': row[1]}
         return None
     except sqlite3.Error as e:
         print(f"Ошибка при получении пользователя: {e}")
