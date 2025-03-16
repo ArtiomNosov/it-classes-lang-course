@@ -21,9 +21,15 @@
         <div class="auth">
             <a href="/login">Вход</a>
             <a href="/register">Регистрация</a>
-            <a href="/profile" class="user-avatar">
-                <img src="static/images/user-avatar.png" alt="Профиль" />
-            </a>
+            {% if session.get('user_id') %}
+                <!-- Ссылка на профиль авторизованного пользователя -->
+                <a href="/profile/{{ session['user_id'] }}" class="user-avatar">
+                    <img src="/static/images/user-avatar.png" alt="Профиль" class="user-avatar">
+                </a>
+            {% else %}
+                <!-- Если пользователь не авторизован, показываем аватарку без ссылки -->
+                <img src="/static/images/user-avatar.png" alt="Профиль" class="user-avatar">
+            {% endif %}
         </div>
     </header>    
     <main>

@@ -163,13 +163,25 @@ main {
     object-fit: contain;
 }
 
+.auth {
+    display: flex;
+    align-items: center; /* Выравнивание элементов по центру */
+    gap: 10px; /* Расстояние между элементами */
+}
+
+.user-avatar {
+    width: 40px; /* Фиксированная ширина аватарки */
+    height: 40px; /* Фиксированная высота аватарки */
+    object-fit: cover; /* Обрезка изображения под заданные размеры */
+    border-radius: 50%; /* Округление углов для круглой формы */
+    cursor: pointer; /* Указатель мыши при наведении */
+}
+
 .user-avatar img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-    transition: transform 0.2s ease;
+    width: 100%; /* Изображение занимает всю ширину контейнера */
+    height: 100%; /* Изображение занимает всю высоту контейнера */
+    object-fit: cover; /* Обрезка изображения под заданные размеры */
+    border-radius: 50%; /* Округление углов для круглой формы */
 }
 
 .user-avatar img:hover {

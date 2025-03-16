@@ -258,3 +258,139 @@ def update_votes(question_id, user_id, action):
         return False
     finally:
         conn.close()
+
+def get_all_questions():
+    """
+    Получает все вопросы из базы данных с никнеймами авторов.
+
+    :return: Список словарей с данными вопросов
+    """
+    conn = sqlite3.connect('app/db/forum.db')  # Замените на путь к вашей базе данных
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute('''
+            SELECT q.id, q.title, q.likes, q.created_at, u.username
+            FROM questions q
+            LEFT JOIN users u ON q.author_id = u.id
+            ORDER BY q.created_at DESC
+        ''')
+        rows = cursor.fetchall()
+
+        # Преобразуем результат в список словарей
+        questions = []
+        for row in rows:
+            questions.append({
+                'id': row[0],
+                'title': row[1],
+                'likes': row[2],
+                'created_at': row[3],
+                'author_username': row[4]  # Никнейм автора
+            })
+        return questions
+    except sqlite3.Error as e:
+        print(f"Ошибка при получении вопросов: {e}")
+        return []
+    finally:
+        conn.close()
+
+import sqlite3
+
+def get_user_by_id(user_id):
+    """
+    Получает данные пользователя из базы данных по его ID.
+
+    :param user_id: ID пользователя (int)
+    :return: Словарь с данными пользователя или None, если пользователь не найден
+    """
+    conn = sqlite3.connect('app/db/forum.db')  # Замените на путь к вашей базе данных
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute('''
+            SELECT id, username, email, registration_date, questions_count, answers_count, likes
+            FROM users
+            WHERE id = ?
+        ''', (user_id,))
+        row = cursor.fetchone()
+
+        if row:
+            return {
+                'id': row[0],
+                'username': row[1],
+                'email': row[2],
+                'registration_date': row[3],
+                'questions_count': row[4],
+                'answers_count': row[5],
+                'likes': row[6]
+            }
+        return None
+    except sqlite3.Error as e:
+        print(f"Ошибка при получении пользователя: {e}")
+        return None
+    finally:
+        conn.close()
+
+import sqlite3
+from datetime import datetime
+
+def add_answer(question_id, user_id, body):
+    """
+    Добавляет ответ в базу данных.
+
+    :param question_id: ID вопроса (int)
+    :param user_id: ID пользователя (int)
+    :param body: Текст ответа (str)
+    :return: True, если добавление успешно, иначе False
+    """
+    conn = sqlite3.connect('app/db/forum.db')  # Замените на путь к вашей базе данных
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute('''
+            INSERT INTO answers (question_id, author_id, body, created_at)
+            VALUES (?, ?, ?, ?)
+        ''', (question_id, user_id, body, datetime.now()))
+        conn.commit()
+        return True
+    except sqlite3.Error as e:
+        print(f"Ошибка при добавлении ответа: {e}")
+        conn.rollback()
+        return False
+    finally:
+        conn.close()
+
+def get_answers_for_question(question_id):
+    """
+    Получает все ответы для конкретного вопроса.
+
+    :param question_id: ID вопроса (int)
+    :return: Список словарей с данными ответов
+    """
+    conn = sqlite3.connect('app/db/forum.db')  # Замените на путь к вашей базе данных
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute('''
+            SELECT a.id, a.body, a.created_at, u.username
+            FROM answers a
+            LEFT JOIN users u ON a.author_id = u.id
+            WHERE a.question_id = ?
+            ORDER BY a.created_at ASC
+        ''', (question_id,))
+        rows = cursor.fetchall()
+
+        answers = []
+        for row in rows:
+            answers.append({
+                'id': row[0],
+                'body': row[1],
+                'created_at': row[2],
+                'author_username': row[3]
+            })
+        return answers
+    except sqlite3.Error as e:
+        print(f"Ошибка при получении ответов: {e}")
+        return []
+    finally:
+        conn.close()

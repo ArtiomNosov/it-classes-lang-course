@@ -20,8 +20,16 @@
         <div class="auth">
             <a href="/login">Вход</a>
             <a href="/register">Регистрация</a>
-            <a href="/profile" class="user-avatar">
-                <img src="static/images/user-avatar.png" alt="Профиль" />
+            {% if session.get('user_id') %}
+                <!-- Ссылка на профиль авторизованного пользователя -->
+                <a href="/profile/{{ session['user_id'] }}" class="user-avatar">
+                    <img src="/static/images/user-avatar.png" alt="Профиль" class="user-avatar">
+                </a>
+            {% else %}
+                <!-- Если пользователь не авторизован, показываем аватарку без ссылки -->
+                <img src="/static/images/user-avatar.png" alt="Профиль" class="user-avatar">
+            {% endif %}
+        </div>
             </a>
         </div>
     </header>
@@ -34,14 +42,18 @@
                 <button onclick="location.href='/my_questions'">Список моих вопросов</button>
             </div>
             <div class="questions">
-                <div class="question">
-                    <a href="/question/1">Как сложить две переменные?</a>
-                    <div class="meta">0 голосов | 0 ответов | denis-sadovnik | 2 апреля 2024</div>
-                </div>
-                <div class="question">
-                    <a href="#">Как работает система ввода-вывода в C++ и чем отличаются cin/cout от scanf/printf?</a>
-                    <div class="meta">0 голосов | 0 ответов | plan_banan | 1 января 2023</div>
-                </div>
+                {% if questions %}
+                    {% for question in questions %}
+                        <div class="question">
+                            <a href="/question/{{ question.id }}">{{ question.title }}</a>
+                            <div class="meta">
+                                {{ question.likes }} голосов | 0 ответов | Автор: {{ question.author_username }} | {{ question.created_at }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>На форуме пока нет вопросов.</p>
+                {% endif %}
             </div>
         </div>
     </main> 

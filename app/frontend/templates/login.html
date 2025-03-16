@@ -38,38 +38,39 @@
 
     <script>
         document.getElementById('login-form').addEventListener('submit', async (event) => {
-            event.preventDefault(); // Предотвращаем перезагрузку страницы
-            
-            // Собираем данные из формы
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const rememberMe = document.getElementById('remember-me').checked;
+    event.preventDefault(); // Предотвращаем перезагрузку страницы
+    
+    // Собираем данные из формы
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const rememberMe = document.getElementById('remember-me').checked;
 
-            try {
-                const response = await fetch('/submit_login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        username: username,
-                        password: password,
-                        remember_me: rememberMe,
-                    }),
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    window.location.href = "profile"
-                } else {
-                    const error = await response.json();
-                    alert(`Ошибка: ${error.message}`);
-                }
-            } catch (err) {
-                console.error('Ошибка запроса:', err);
-                alert('Произошла ошибка при авторизации.');
-            }
+    try {
+        const response = await fetch('/submit_login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password,
+                remember_me: rememberMe,
+            }),
         });
+
+        if (response.ok) {
+            const data = await response.json();
+            const userId = data.user_id; // Получаем ID пользователя из ответа
+            window.location.href = `/profile/${userId}`; // Переход на profile/<id>
+        } else {
+            const error = await response.json();
+            alert(`Ошибка: ${error.message}`);
+        }
+    } catch (err) {
+        console.error('Ошибка запроса:', err);
+        alert('Произошла ошибка при авторизации.');
+    }
+});
     </script>
 </body>
 </html>

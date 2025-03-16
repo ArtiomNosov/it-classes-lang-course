@@ -1,5 +1,6 @@
 from flask import request, jsonify, Blueprint, render_template,session
-from app.db.actions import save_question_to_db, get_user_questions, get_question_by_id,update_votes
+from app.db.actions import save_question_to_db, get_user_questions, get_question_by_id,update_votes, add_answer
+from app.db.actions import get_answers_for_question
 bp = Blueprint("question", __name__)
 
 @bp.route('/submit_question', methods=['POST'])
@@ -47,15 +48,16 @@ from flask import render_template, abort
 
 @bp.route("/question/<int:question_id>")
 def view_question(question_id):
-    # Получаем данные вопроса из базы данных
+    # Получаем данные вопроса
     question = get_question_by_id(question_id)
 
     if not question:
-        abort(404)  # Возвращаем ошибку 404, если вопрос не найден
+        abort(404)
 
-    # Передаем данные в шаблон
-    return render_template("view_question.html", question=question)
+    # Получаем список ответов
+    answers = get_answers_for_question(question_id)
 
+    return render_template("view_question.html", question=question, answers=answers)
 from flask import jsonify
 
 @bp.route("/vote/<int:question_id>", methods=["POST"])
@@ -82,3 +84,25 @@ def vote_question(question_id):
         return jsonify({'likes': question['likes']}), 200
     else:
         return jsonify({'message': 'Ошибка при голосовании'}), 500
+    
+    from flask import request, jsonify
+
+@bp.route("/answer/<int:question_id>", methods=["POST"])
+def post_answer(question_id):
+    # Проверяем, авторизован ли пользователь
+    if 'user_id' not in session:
+        return jsonify({'message': 'Пользователь не авторизован'}), 401
+
+    # Получаем данные из формы
+    user_id = session['user_id']
+    body = request.form.get('answer')
+
+    if not body:
+        return jsonify({'message': 'Ответ не может быть пустым'}), 400
+
+    # Сохраняем ответ в базе данных
+    success = add_answer(question_id, user_id, body)
+    if success:
+        return jsonify({'message': 'Ответ успешно добавлен'}), 200
+    else:
+        return jsonify({'message': 'Ошибка при добавлении ответа'}), 500

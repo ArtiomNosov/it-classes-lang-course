@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная страница</title>
+    <title>Профиль {{ user.username }}</title>
     <link rel="stylesheet" href="/static/css/profile.css">
 </head>
 <body>
@@ -15,34 +15,36 @@
             </a>
         </div>
         <nav class="main-nav">
-            <button onclick="location.href='/'" class="nav-btn">Курс</button>
+            <button onclick="location.href='/course'" class="nav-btn">Курс</button>
             <button onclick="location.href='/forum'" class="nav-btn">Форум</button>
         </nav>
         <div class="auth">
-            <a href="/login">Вход</a>
-            <a href="/register">Регистрация</a>
-            <a href="/profile" class="user-avatar">
-                <img src="/static/images/user-avatar.png" alt="Профиль">
-            </a>
+            {% if session.get('user_id') %}
+                <!-- Если пользователь авторизован -->
+                <a href="/logout" class="logout-btn">Выход</a>
+                <a href="/profile/{{ session['user_id'] }}" class="user-avatar">
+                    <img src="/static/images/user-avatar.png" alt="Профиль">
+                </a>
+            {% else %}
+                <!-- Если пользователь не авторизован -->
+                <a href="/login">Вход</a>
+                <a href="/register">Регистрация</a>
+                <img src="/static/images/user-avatar.png" alt="Профиль" class="user-avatar">
+            {% endif %}
         </div>
     </header>
 
-    <!-- Основной контейнер профиля -->
-    <div class="profile-container">
-        <h1>Профиль пользователя</h1>
-        <div class="profile-card">
-            <h2>{{ user.username }}</h2>
-            <p>Email: {{ user.email }}</p>
-            <p>Дата регистрации: {{ user.registration_date }}</p>
-            <p>Лайков: {{ user.likes }}</p>
-            <p>Пройдено уровней: {{ user.levels_completed }}</p>
-            <p>Заданных вопросов: {{ user.questions_count }}</p>
-            <p>Данных ответов: {{ user.answers_count }}</p>
-            <a href="/logout" class="logout-btn">Выйти</a>
+    <!-- Основной контент -->
+    <main>
+        <div class="section-container">
+            <h1>Профиль пользователя: {{ user.username }}</h1>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Дата регистрации:</strong> {{ user.registration_date }}</p>
+            <p><strong>Заданных вопросов:</strong> {{ user.questions_count }}</p>
+            <p><strong>Данных ответов:</strong> {{ user.answers_count }}</p>
+            <p><strong>Лайков:</strong> {{ user.likes }}</p>
+            <a href="/forum" class="logout-btn">Назад на форум</a>
         </div>
-    </div>
-
-
-
+    </main>
 </body>
 </html>

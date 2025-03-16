@@ -50,7 +50,17 @@ def create_db():
             UNIQUE(question_id, user_id) -- Один пользователь может проголосовать только один раз за вопрос
         )
     ''')
-
+    cursor.execute('''
+            CREATE TABLE IF NOT EXISTS answers (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                question_id INTEGER NOT NULL,
+                author_id INTEGER NOT NULL,
+                body TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (question_id) REFERENCES questions(id),
+                FOREIGN KEY (author_id) REFERENCES users(id)
+            )
+        ''')
     # Сохраняем изменения и закрываем соединение
     conn.commit()
     conn.close()

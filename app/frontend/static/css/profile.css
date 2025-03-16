@@ -11,7 +11,33 @@ body {
     background-color: #f4f4f4;
     color: #333;
 }
+.logout-btn {
+    background-color: #ff4d4d; /* Красный цвет */
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+}
+.user-avatar {
+    width: 40px; /* Фиксированная ширина аватарки */
+    height: 40px; /* Фиксированная высота аватарки */
+    object-fit: cover; /* Обрезка изображения под заданные размеры */
+    border-radius: 50%; /* Округление углов для круглой формы */
+    cursor: pointer; /* Указатель мыши при наведении */
+}
 
+.user-avatar img {
+    width: 100%; /* Изображение занимает всю ширину контейнера */
+    height: 100%; /* Изображение занимает всю высоту контейнера */
+    object-fit: cover; /* Обрезка изображения под заданные размеры */
+    border-radius: 50%; /* Округление углов для круглой формы */
+}
+.logout-btn:hover {
+    background-color: #cc0000; /* Темно-красный при наведении */
+}
 /* Хедер */
 header {
     position: fixed;
