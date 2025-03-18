@@ -55,7 +55,7 @@ def logout():
 def view_profile(user_id):
     # Получаем данные пользователя из базы данных
     user = get_user_by_id(user_id)
-
+    print(user)
     if not user:
         abort(404)  # Возвращаем ошибку 404, если пользователь не найден
 

@@ -312,13 +312,30 @@ def get_user_by_id(user_id):
 
     try:
         cursor.execute('''
-            SELECT id, username FROM users
+            SELECT 
+                id, 
+                username, 
+                email, 
+                registration_date, 
+                questions_count, 
+                answers_count, 
+                likes 
+            FROM users
             WHERE id = ?
         ''', (user_id,))
         row = cursor.fetchone()
 
         if row:
-            return {'id': row[0], 'username': row[1]}
+            # Формируем словарь с данными пользователя
+            return {
+                'id': row[0],
+                'username': row[1],
+                'email': row[2],
+                'registration_date': row[3],
+                'questions_count': row[4],
+                'answers_count': row[5],
+                'likes': row[6]
+            }
         return None
     except sqlite3.Error as e:
         print(f"Ошибка при получении пользователя: {e}")

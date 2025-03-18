@@ -2,7 +2,6 @@ from flask import request, jsonify, Blueprint, render_template,session
 from app.db.actions import save_question_to_db, get_user_questions, get_question_by_id,update_votes, add_answer
 from app.db.actions import get_answers_for_question
 bp = Blueprint("question", __name__)
-
 @bp.route('/submit_question', methods=['POST'])
 def submit_question():
     # Проверяем, авторизован ли пользователь
@@ -58,8 +57,6 @@ def view_question(question_id):
     answers = get_answers_for_question(question_id)
 
     return render_template("view_question.html", question=question, answers=answers)
-from flask import jsonify
-
 @bp.route("/vote/<int:question_id>", methods=["POST"])
 def vote_question(question_id):
     # Проверяем, авторизован ли пользователь
@@ -75,7 +72,6 @@ def vote_question(question_id):
 
     if action not in ['upvote', 'downvote']:
         return jsonify({'message': 'Неверное действие'}), 400
-
     # Обновляем счетчик лайков в базе данных
     success = update_votes(question_id, user_id, action)  # Передаем user_id
     if success:
@@ -85,8 +81,6 @@ def vote_question(question_id):
     else:
         return jsonify({'message': 'Ошибка при голосовании'}), 500
     
-    from flask import request, jsonify
-
 @bp.route("/answer/<int:question_id>", methods=["POST"])
 def post_answer(question_id):
     # Проверяем, авторизован ли пользователь
