@@ -1,4 +1,4 @@
-function showNotification(message, type = 'success') {
+function showNotification(message, type = 'success', redirectUrl = null, delay = 3000) {
     // Создаем элемент для уведомления
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
@@ -9,6 +9,10 @@ function showNotification(message, type = 'success') {
 
     // Добавляем уведомление в контейнер
     const container = document.getElementById('notification-container');
+    if (!container) {
+        console.error("Контейнер для уведомлений не найден!");
+        return;
+    }
     container.appendChild(notification);
 
     // Показываем уведомление
@@ -24,14 +28,24 @@ function showNotification(message, type = 'success') {
         setTimeout(() => {
             container.removeChild(notification);
         }, 300); // Время должно совпадать с длительностью CSS-перехода
+
+        // Редирект при нажатии на кнопку
+        if (redirectUrl) {
+            window.location.href = redirectUrl;
+        }
     });
 
-    // Автоматически скрываем уведомление через 3 секунды
+    // Автоматическое скрытие уведомления через заданное время
     setTimeout(() => {
         notification.classList.remove('show');
 
         setTimeout(() => {
             container.removeChild(notification);
-        }, 300);
-    }, 3000);
+        }, 300); // Время должно совпадать с длительностью CSS-перехода
+
+        // Редирект после автоматического закрытия
+        if (redirectUrl) {
+            window.location.href = redirectUrl;
+        }
+    }, delay); // Используем переданную задержку
 }

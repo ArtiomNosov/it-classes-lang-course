@@ -58,32 +58,34 @@
     </main>
 
     <!-- Блок для отправки ответа -->
-<div class="answer-form">
-    <h3>Оставить ответ:</h3>
-    <form id="answer-form" data-question-id="{{ question.id }}">
-        <textarea name="answer" placeholder="Введите ваш ответ..." required></textarea>
-        <button type="submit">Отправить</button>
-    </form>
-</div>
+    <div id="notification-container"></div>
+    
+    <div class="answer-form">
+        <h3>Оставить ответ:</h3>
+        <form id="answer-form" data-question-id="{{ question.id }}">
+            <textarea name="answer" placeholder="Введите ваш ответ..." required></textarea>
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
 
-<!-- Блок для отображения ответов -->
-<div class="answers">
-    <h3>Ответы:</h3>
-    {% if answers %}
-        {% for answer in answers %}
-            <div class="answer">
-                <p>{{ answer.body }}</p>
-                <div class="meta">
-                    Автор: {{ answer.author_username }} | Дата: {{ answer.created_at }}
+    <!-- Блок для отображения ответов -->
+    <div class="answers">
+        <h3>Ответы:</h3>
+        {% if answers %}
+            {% for answer in answers %}
+                <div class="answer">
+                    <p>{{ answer.body }}</p>
+                    <div class="meta">
+                        Автор: {{ answer.author_username }} | Дата: {{ answer.created_at }}
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>Пока нет ответов.</p>
-    {% endif %}
-</div>
-
-    <!-- JavaScript для обработки голосов -->
+            {% endfor %}
+        {% else %}
+            <p>Пока нет ответов.</p>
+        {% endif %}
+    </div>
+        <!-- JavaScript для обработки голосов -->
+    <script src="/static/js/notificate.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const upvoteBtn = document.getElementById('upvote-btn');
@@ -105,7 +107,7 @@
                     const data = await response.json();
                     voteCount.textContent = data.likes;
                 } else {
-                    alert('Ошибка при голосовании.');
+                    // showNotification(data.message, 'error', '/',2000);
                 }
             });
 
@@ -130,39 +132,49 @@
         });
     </script>
 
-<script>document.addEventListener('DOMContentLoaded', () => {
-    const answerForm = document.getElementById('answer-form');
-    const answersContainer = document.querySelector('.answers');
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const answerForm = document.getElementById('answer-form');
+        const answersContainer = document.querySelector('.answers');
 
-    // Обработчик отправки формы
-    answerForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
+        // Обработчик отправки формы
+        answerForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
 
-        const questionId = answerForm.getAttribute('data-question-id');
-        const body = answerForm.querySelector('textarea[name="answer"]').value;
+            const questionId = answerForm.getAttribute('data-question-id');
+            const body = answerForm.querySelector('textarea[name="answer"]').value;
 
-        const response = await fetch(`/answer/${questionId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `answer=${encodeURIComponent(body)}`,
+            try {
+                const response = await fetch(`/answer/${questionId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `answer=${encodeURIComponent(body)}`,
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    showNotification(result.message, 'success',delay=2000); // Показываем уведомление
+
+                    // Очищаем форму
+                    answerForm.querySelector('textarea[name="answer"]').value = '';
+
+                    // Добавляем задержку перед обновлением страницы
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000); // Обновляем страницу через 3 секунды
+                } else {
+                    const error = await response.json();
+                    showNotification(error.message, 'error'); // Показываем уведомление об ошибке
+                }
+            } catch (err) {
+                console.error('Ошибка запроса:', err);
+                showNotification('Произошла ошибка при отправке ответа.', 'error');
+            }
         });
-
-        if (response.ok) {
-            const result = await response.json();
-            alert(result.message);
-
-            // Очищаем форму
-            answerForm.querySelector('textarea[name="answer"]').value = '';
-
-            // Перезагружаем страницу для обновления списка ответов
-            location.reload();
-        } else {
-            const error = await response.json();
-            alert(error.message);
-        }
     });
-});</script>
+</script>
 </body>
+
 </html>

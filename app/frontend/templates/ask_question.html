@@ -63,7 +63,7 @@ document.getElementById('ask-question-form').addEventListener('submit', async (e
 
         if (response.ok) {
             const data = await response.json();
-            showNotification(data.message, 'success'); // Показываем успешное уведомление
+            showNotification(data.message, 'success', '/forum'); // Показываем успешное уведомление
 
             // Откладываем редирект на 3 секунды (время, пока показывается уведомление)
             setTimeout(() => {

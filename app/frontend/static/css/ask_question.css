@@ -168,3 +168,16 @@ button.btn:hover {
 .notification.error {
     background-color: #f44336; /* Красный цвет для ошибок */
 }
+.notification .close-btn {
+    margin-left: 10px;
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.notification .close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}

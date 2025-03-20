@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="static/css/styles_login.css">
 </head>
 <body>
+    <!-- Контейнер для уведомлений -->
+    <div id="notification-container"></div>
+    
     <!-- Контейнер для логотипа -->
     <div class="header">
         <a href="/" class="logo-link">
@@ -37,7 +40,11 @@
             </p>
         </div>
     </div>
+
+    <!-- Подключение внешнего JavaScript-файла -->
+    <script src="static/js/notificate.js"></script>
     <script>
+        // Функция для проверки формы и отправки данных
         document.getElementById('register-form').addEventListener('submit', async (event) => {
             event.preventDefault(); // Предотвращаем перезагрузку страницы
             
@@ -46,10 +53,13 @@
             const email = document.getElementById('reg-email').value;
             const password = document.getElementById('reg-password').value;
             const confirmPassword = document.getElementById('reg-confirm-password').value;
+
+            // Проверяем совпадение паролей
             if (password !== confirmPassword) {
-                alert('Пароли не совпадают');
+                showNotification('Пароли не совпадают', 'error');
                 return;
             }
+
             try {
                 const response = await fetch('/new_register', {
                     method: 'POST',
@@ -62,16 +72,17 @@
                         password: password,
                     }),
                 });
+
                 if (response.ok) {
                     const data = await response.json();
-                    alert(`Пользователь ${data.username} успешно зарегистрирован!`);
+                    showNotification(`Пользователь ${data.username} успешно зарегистрирован!`, 'success','forum');
                 } else {
                     const error = await response.json();
-                    alert(`Ошибка: ${error.message}`);
+                    showNotification(`Ошибка: ${error.message}`, 'error');
                 }
             } catch (err) {
                 console.error('Ошибка запроса:', err);
-                alert('Произошла ошибка при регистрации.');
+                showNotification('Произошла ошибка при регистрации.', 'error');
             }
         });
     </script>
