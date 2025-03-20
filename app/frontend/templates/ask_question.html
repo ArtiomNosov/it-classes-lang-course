@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="/static/css/ask_question.css">
 </head>
 <body>
+    <!-- Контейнер для уведомлений -->
+    <div id="notification-container"></div>
     <!-- Хедер с логотипом -->
     <div class="header">
         <a href="/" class="logo-link">
@@ -35,39 +37,47 @@
         </form>
     </div>
 
+    <script src="/static/js/notificate.js"></script>
+
     <script>
-        document.getElementById('ask-question-form').addEventListener('submit', async (event) => {
-            event.preventDefault(); // Предотвращаем перезагрузку страницы
+        // Обработчик отправки формы
+// Обработчик отправки формы
+document.getElementById('ask-question-form').addEventListener('submit', async (event) => {
+    event.preventDefault(); // Предотвращаем перезагрузку страницы
 
-            // Собираем данные из формы
-            const title = document.getElementById('question-title').value;
-            const text = document.getElementById('question-text').value;
+    // Собираем данные из формы
+    const title = document.getElementById('question-title').value;
+    const text = document.getElementById('question-text').value;
 
-            try {
-                const response = await fetch('/submit_question', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        title: title,
-                        text: text,
-                    }),
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    alert(`Ваш вопрос "${data.title}" успешно отправлен!`);
-                    window.location.href = '/my_questions'; // Перенаправление на страницу с вопросами
-                } else {
-                    const error = await response.json();
-                    alert(`Ошибка: ${error.message}`);
-                }
-            } catch (err) {
-                console.error('Ошибка запроса:', err);
-                alert('Произошла ошибка при отправке вопроса.');
-            }
+    try {
+        const response = await fetch('/submit_question', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                title: title,
+                text: text,
+            }),
         });
+
+        if (response.ok) {
+            const data = await response.json();
+            showNotification(data.message, 'success'); // Показываем успешное уведомление
+
+            // Откладываем редирект на 3 секунды (время, пока показывается уведомление)
+            setTimeout(() => {
+                window.location.href = '/my_questions';
+            }, 3000);
+        } else {
+            const error = await response.json();
+            showNotification(error.message, 'error'); // Показываем уведомление об ошибке
+        }
+    } catch (err) {
+        console.error('Ошибка запроса:', err);
+        showNotification('Произошла ошибка при отправке вопроса.', 'error');
+    }
+});
     </script>
 </body>
 </html>

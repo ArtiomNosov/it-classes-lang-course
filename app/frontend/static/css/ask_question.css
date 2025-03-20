@@ -134,3 +134,37 @@ button.btn {
 button.btn:hover {
     background-color: #005f99;
 }
+#notification-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* Стиль одного уведомления */
+.notification {
+    background-color: #4caf50; /* Цвет фона для успешного уведомления */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Активное состояние уведомления */
+.notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Уведомление об ошибке */
+.notification.error {
+    background-color: #f44336; /* Красный цвет для ошибок */
+}
