@@ -55,6 +55,7 @@ header .logo span {
     margin-left: auto; /* Сдвигает блок аутентификации вправо */
     display: flex;
     gap: 10px; /* Расстояние между ссылками */
+    align-items: center;
 }
 
 header .auth a {
