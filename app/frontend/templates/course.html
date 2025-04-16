@@ -135,6 +135,10 @@
 
         async function submitCode() {
             const code = editor.getValue();
+            const tabEditor = document.getElementById('tab-editor');
+            const tabOutput = document.getElementById('tab-output');
+            tabOutput.classList.add('active');
+            tabEditor.classList.remove('active');
             try {
                 const response = await fetch('/submit', {
                     method: 'POST',
