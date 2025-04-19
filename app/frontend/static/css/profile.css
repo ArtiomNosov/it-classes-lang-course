@@ -47,12 +47,12 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    /* Центрирование элементов по вертикали */
     background-color: #fff;
     padding: 10px 20px;
     border-bottom: 1px solid #ccc;
     z-index: 1000;
 }
-
 /* Логотип */
 header .logo {
     display: flex;
@@ -71,22 +71,29 @@ header .logo span {
     color: #007acc;
 }
 
-/* Навигация (кнопки "Курс" и "Форум") */
-header .main-nav {
+header nav {
+    margin-left: 20px;
+    /* Отступ от логотипа */
     display: flex;
-    gap: 10px; /* Расстояние между кнопками */
-    margin-left: 20px; /* Отступ от логотипа */
+    gap: 10px;
+    /* Расстояние между кнопками */
 }
 
-header .main-nav button {
+header nav button {
     padding: 10px 20px;
     border: none;
     background-color: transparent;
     color: #007acc;
-    font-weight: bold;
+    font-weight: bolder;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s;
+}
+
+header nav button.active,
+header nav button:hover {
+    background-color: #007acc;
+    color: #fff;
 }
 
 header .main-nav button.active,
@@ -104,7 +111,7 @@ header .auth {
 
 header .auth a {
     text-decoration: none;
-    color: #747474;
+    /* color: #747474; */
     font-weight: lighter;
 }
 

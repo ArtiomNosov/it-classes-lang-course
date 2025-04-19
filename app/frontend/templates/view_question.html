@@ -28,7 +28,9 @@
                 </a>
             {% else %}
                 <!-- Если пользователь не авторизован, показываем аватарку без ссылки -->
-                <img src="/static/images/user-avatar.png" alt="Профиль" class="user-avatar">
+                <a href="/register" class="user-avatar">
+                    <img src="/static/images/user-avatar.png" alt="Профиль" class="user-avatar">
+                </a>
             {% endif %}
         </div>
     </header>
