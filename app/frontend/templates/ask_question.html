@@ -10,15 +10,30 @@
     <!-- Контейнер для уведомлений -->
     <div id="notification-container"></div>
     <!-- Хедер с логотипом -->
-    <div class="header">
-        <a href="/" class="logo-link">
-            <img src="/static/images/logo.png" alt="Логотип" class="logo">
-        </a>
+    <header>
+        <div class="logo">
+            <a href="/">
+                <img src="static/images/logo.png" alt="Логотип сайта" />
+            </a>
+        </div>
         <nav>
             <button id="course-button" class="active">Курс</button>
             <button id="forum-button">Форум</button>
         </nav>
-    </div>
+        <div class="auth">
+            <a href="/login">Вход</a>
+            <a href="/register">Регистрация</a>
+            {% if session.get('user_id') %}
+                <!-- Ссылка на профиль авторизованного пользователя -->
+                <a href="/profile/{{ session['user_id'] }}" class="user-avatar">
+                    <img src="/static/images/user-avatar.png" alt="Профиль" class="user-avatar">
+                </a>
+            {% else %}
+                <!-- Если пользователь не авторизован, показываем аватарку без ссылки -->
+                <img src="/static/images/user-avatar.png" alt="Профиль" class="user-avatar">
+            {% endif %}
+        </div>
+    </header>
 
     <!-- Основной контейнер -->
     <div class="container">
@@ -79,5 +94,6 @@ document.getElementById('ask-question-form').addEventListener('submit', async (e
     }
 });
     </script>
+    <script src="/static/js/script2.js"></script>
 </body>
 </html>

@@ -9,16 +9,76 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
+    line-height: 1.6;
     /* Цвет фона страницы должен быть одинаковым */
 }
 
 header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     display: flex;
-    justify-content: space-between; /* Размещает содержимое по краям */
-    align-items: center; /* Выравнивает элементы по вертикали */
-    padding: 10px 20px;
+    justify-content: space-between;
+    align-items: center;
+    /* Центрирование элементов по вертикали */
     background-color: #fff;
+    padding: 10px 20px;
     border-bottom: 1px solid #ccc;
+    z-index: 1000;
+}
+
+header .logo span {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #007acc;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header nav {
+    margin-left: 20px;
+    /* Отступ от логотипа */
+    display: flex;
+    gap: 10px;
+    /* Расстояние между кнопками */
+}
+
+header nav button {
+    padding: 10px 20px;
+    border: none;
+    background-color: transparent;
+    color: #007acc;
+    font-weight: bolder;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+header nav button.active,
+header nav button:hover {
+    background-color: #007acc;
+    color: #fff;
+}
+
+header .auth {
+    margin-left: auto;
+    /* Перемещаем в правый край */
+    display: flex;
+    align-items: center;
+    /* Центрирование по вертикали */
+    gap: 10px;
+    /* Расстояние между кнопками */
+}
+
+header .auth a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #747474;
+    font-weight: lighter;
 }
 
 .logo {
@@ -26,11 +86,11 @@ header {
     align-items: center; /* Выравнивает логотип по вертикали */
 }
 
-nav {
+/* nav {
     display: flex;
     gap: 10px;
     padding-left: 15px;
-}
+} */
 
 header .logo span {
     font-weight: bold;
