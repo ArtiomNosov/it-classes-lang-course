@@ -1,8 +1,21 @@
-# it-classes-lang-course
+# Installation
 
-напишите короче pip3 install requirements.txt (пока тут только flask), а еще наверное для тестов нужно иметь скачаннный докер (https://docs.docker.com/engine/install/ubuntu/) 
+`git clone https://github.com/ArtiomNosov/it-classes-lang-course.git`
 
-отлично пашет на линуксе, на винде 99% не будет. учите линукс пацаны.
-сервис запускается на http://127.0.0.1:5000
+# Usage
 
-запускать run.py (обязательно через sudo, а то докер поломается)
+## Ubuntu/Debian
+
+```
+cd ./it-classes-lang-course
+bash run.sh
+```
+
+The service will be broadcasted at 0.0.0.0:5000.
+
+To ensure the full functionality of the compiler, Docker must be installed. 
+
+# Usage (localhost)
+
+To run website locally, do:
+`python3 run.py`
