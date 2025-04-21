@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         forumButton.classList.add('active');
         courseButton.classList.remove('active');
         // Переход на страницу форума
-        window.location.href = 'forum'; // Замените на нужный URL
+        window.location.href = '/forum'; // Замените на нужный URL
     });
 
     const tabEditor = document.getElementById('tab-editor');

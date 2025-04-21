@@ -21,7 +21,7 @@
         <div class="auth">
             {% if session.get('user_id') %}
                 <!-- Если пользователь авторизован -->
-                <a href="/logout" class="logout-btn">Выход</a>
+                <a href="/forum" class="logout-btn">Выход</a>
                 <a href="/profile/{{ session['user_id'] }}" class="user-avatar">
                     <img src="/static/images/user-avatar.png" alt="Профиль">
                 </a>
@@ -42,8 +42,9 @@
             <p><strong>Заданных вопросов:</strong> {{ user.questions_count }}</p>
             <p><strong>Данных ответов:</strong> {{ user.answers_count }}</p>
             <p><strong>Лайков:</strong> {{ user.likes }}</p>
-            <a href="/forum" class="logout-btn">Назад на форум</a>
+            <a href="../forum" class="logout-btn">Назад на форум</a>
         </div>
     </main>
+    <script src="../static/js/script1.js"></script>
 </body>
 </html>

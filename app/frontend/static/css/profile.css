@@ -38,7 +38,6 @@ body {
 .logout-btn:hover {
     background-color: #cc0000; /* Темно-красный при наведении */
 }
-/* Хедер */
 header {
     position: fixed;
     top: 0;
@@ -53,17 +52,6 @@ header {
     border-bottom: 1px solid #ccc;
     z-index: 1000;
 }
-/* Логотип */
-header .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Расстояние между логотипом и текстом */
-}
-
-header .logo img {
-    height: 50px;
-    object-fit: contain;
-}
 
 header .logo span {
     font-weight: bold;
@@ -71,6 +59,14 @@ header .logo span {
     color: #007acc;
 }
 
+header .logo {
+    display: flex;
+    align-items: center;
+}
+.logo img {
+    height: 50px; /* или подстрой под твой дизайн */
+    object-fit: contain;
+}
 header nav {
     margin-left: 20px;
     /* Отступ от логотипа */
@@ -96,44 +92,30 @@ header nav button:hover {
     color: #fff;
 }
 
-header .main-nav button.active,
-header .main-nav button:hover {
-    background-color: #007acc;
-    color: #fff;
-}
-
-/* Блок авторизации */
 header .auth {
+    margin-left: auto;
+    /* Перемещаем в правый край */
     display: flex;
     align-items: center;
-    gap: 10px; /* Расстояние между элементами */
+    /* Центрирование по вертикали */
+    gap: 10px;
+    /* Расстояние между кнопками */
 }
 
 header .auth a {
+    margin: 0 10px;
     text-decoration: none;
-    /* color: #747474; */
+    color: #ffffff;
     font-weight: lighter;
 }
 
-header .auth .user-avatar img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-header .auth .user-avatar img:hover {
-    transform: scale(1.1);
-}
-
-/* Основной контент */
 main {
     max-width: 1200px;
-    margin: 80px auto 20px; /* Отступ сверху для корректной работы с фиксированным хедером */
+    margin: 80px auto 20px;
+    /* Добавлен отступ сверху для корректной работы с фиксированным хедером */
     padding: 0 20px;
 }
+
 
 .section-container {
     background-color: #fff;
