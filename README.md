@@ -18,4 +18,7 @@ To ensure the full functionality of the compiler, Docker must be installed.
 # Usage (localhost)
 
 To run website locally, do:
+
 `python3 run.py`
+
+The service will be started at localhost:5000.
